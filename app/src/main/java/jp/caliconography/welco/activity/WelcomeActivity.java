@@ -1,5 +1,6 @@
-package jp.caliconography.welco;
+package jp.caliconography.welco.activity;
 
+import jp.caliconography.welco.R;
 import jp.caliconography.welco.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -9,8 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 
 /**
@@ -56,8 +55,8 @@ public class WelcomeActivity extends Activity {
 
         setContentView(R.layout.activity_welcome);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
+        final View controlsView = findViewById(R.id.welcome_content_controls);
+        final View contentView = findViewById(R.id.welcome_content);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
