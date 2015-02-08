@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import jp.caliconography.welco.activity.dummy.DummyContent;
 import jp.caliconography.welco.adapter.MemberAdapter;
-import jp.caliconography.welco.model.parseobject.Member;
 
 /**
  * A list fragment representing a list of Members. This fragment
@@ -56,10 +55,12 @@ public class MemberListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MemberAdapter adapter = new MemberAdapter(this.getActivity());
-        adapter.setTextKey(Member.KEY_NAME);
-        setListAdapter(adapter);
-//        setListAdapter(new ParseQueryAdapter<ParseObject>(this.getActivity(), "Member"));
+        setListAdapter(new MemberAdapter(this.getActivity()));
+//        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,
+//                DummyContent.ITEMS));
     }
 
     @Override
