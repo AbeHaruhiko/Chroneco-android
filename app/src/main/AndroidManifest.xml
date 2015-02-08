@@ -18,6 +18,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MemberListActivity"
+            android:label="@string/title_member_list"
+            android:parentActivityName=".activity.WelcomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jp.caliconography.welco.activity.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.MemberDetailActivity"
+            android:label="@string/title_member_detail"
+            android:parentActivityName=".activity.MemberListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jp.caliconography.welco.activity.MemberListActivity" />
+        </activity>
     </application>
 
 </manifest>

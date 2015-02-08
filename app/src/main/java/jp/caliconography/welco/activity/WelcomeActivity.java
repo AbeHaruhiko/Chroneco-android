@@ -1,6 +1,7 @@
 package jp.caliconography.welco.activity;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnTouch;
 import jp.caliconography.welco.R;
@@ -8,6 +9,7 @@ import jp.caliconography.welco.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -157,5 +159,11 @@ public class WelcomeActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @OnClick(R.id.call_someone)
+    public void onClickCallSomeone() {
+        Intent intent = new Intent(this, MemberListActivity.class);
+        startActivity(intent);
     }
 }
