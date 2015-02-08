@@ -22,8 +22,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    // butter knife(view injection)
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
+
+    // butter knife(view injection)
     compile 'com.jakewharton:butterknife:5.1.2'
+
+    // need for parse
+    compile 'com.parse.bolts:bolts-android:1.+'
 }

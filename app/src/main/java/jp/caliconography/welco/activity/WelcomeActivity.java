@@ -1,12 +1,5 @@
 package jp.caliconography.welco.activity;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.OnTouch;
-import jp.caliconography.welco.R;
-import jp.caliconography.welco.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+
+import com.parse.ParseObject;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
+import butterknife.OnTouch;
+import jp.caliconography.welco.R;
+import jp.caliconography.welco.util.SystemUiHider;
 
 
 /**
@@ -45,11 +47,21 @@ public class WelcomeActivity extends Activity {
      * The flags to pass to {@link SystemUiHider#getInstance}.
      */
     private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
-
+    Handler mHideHandler = new Handler();
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSystemUiHider.hide();
+        }
+    };
     /**
      * The instance of the {@link SystemUiHider} for this activity.
      */
     private SystemUiHider mSystemUiHider;
+
+    // Upon interacting with UI controls, delay any scheduled hide()
+    // operations to prevent the jarring behavior of controls going away
+    // while interacting with the UI.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,10 @@ public class WelcomeActivity extends Activity {
                         }
                     }
                 });
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
     }
 
     // Set up the user interaction to manually show or hide the system UI.
@@ -118,9 +134,6 @@ public class WelcomeActivity extends Activity {
         return false;
     }
 
-    // Upon interacting with UI controls, delay any scheduled hide()
-    // operations to prevent the jarring behavior of controls going away
-    // while interacting with the UI.
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -143,14 +156,6 @@ public class WelcomeActivity extends Activity {
         // are available.
         delayedHide(100);
     }
-
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
 
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
