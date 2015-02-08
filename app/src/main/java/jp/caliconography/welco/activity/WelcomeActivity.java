@@ -1,5 +1,8 @@
 package jp.caliconography.welco.activity;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 import jp.caliconography.welco.R;
 import jp.caliconography.welco.util.SystemUiHider;
 
@@ -55,6 +58,8 @@ public class WelcomeActivity extends Activity {
 
         setContentView(R.layout.activity_welcome);
 
+        ButterKnife.inject(this);
+
         final View controlsView = findViewById(R.id.welcome_content_controls);
         final View contentView = findViewById(R.id.welcome_content);
 
@@ -99,23 +104,32 @@ public class WelcomeActivity extends Activity {
                         }
                     }
                 });
+    }
 
-        // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
-            }
-        });
+    // Set up the user interaction to manually show or hide the system UI.
+    @OnClick(R.id.welcome_content)
+    public void onClickWelcomeContent() {
+        if (TOGGLE_ON_CLICK) {
+            mSystemUiHider.toggle();
+        } else {
+            mSystemUiHider.show();
+        }
+    }
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    // Upon interacting with UI controls, delay any scheduled hide()
+    // operations to prevent the jarring behavior of controls going away
+    // while interacting with the UI.
+    /**
+     * Touch listener to use for in-layout UI controls to delay hiding the
+     * system UI. This is to prevent the jarring behavior of controls going away
+     * while interacting with activity UI.
+     */
+    @OnTouch(R.id.dummy_button)
+    public boolean onTouchDummyButton() {
+        if (AUTO_HIDE) {
+            delayedHide(AUTO_HIDE_DELAY_MILLIS);
+        }
+        return false;
     }
 
     @Override
@@ -127,22 +141,6 @@ public class WelcomeActivity extends Activity {
         // are available.
         delayedHide(100);
     }
-
-
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {
