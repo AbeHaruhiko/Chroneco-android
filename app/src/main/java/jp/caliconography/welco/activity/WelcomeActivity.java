@@ -1,7 +1,7 @@
 package jp.caliconography.welco.activity;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import butterknife.OnLongClick;
 import butterknife.OnTouch;
 import jp.caliconography.welco.R;
 import jp.caliconography.welco.util.SystemUiHider;
@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -107,13 +106,14 @@ public class WelcomeActivity extends Activity {
     }
 
     // Set up the user interaction to manually show or hide the system UI.
-    @OnClick(R.id.welcome_content)
-    public void onClickWelcomeContent() {
+    @OnLongClick(R.id.welcome_content)
+    public boolean onClickWelcomeContent() {
         if (TOGGLE_ON_CLICK) {
             mSystemUiHider.toggle();
         } else {
             mSystemUiHider.show();
         }
+        return false;
     }
 
     // Upon interacting with UI controls, delay any scheduled hide()
@@ -124,7 +124,7 @@ public class WelcomeActivity extends Activity {
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    @OnTouch(R.id.dummy_button)
+    @OnTouch(R.id.call_someone)
     public boolean onTouchDummyButton() {
         if (AUTO_HIDE) {
             delayedHide(AUTO_HIDE_DELAY_MILLIS);

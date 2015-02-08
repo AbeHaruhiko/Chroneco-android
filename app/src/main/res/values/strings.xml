@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Welco</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="call_someone">呼び出す社員の名前がわかる\nお客様はこちら</string>
+    <string name="call_anyone">その他のお客様はこちら</string>
+    <string name="welcome_message">いらっしゃいませ！\n画面をタッチしてください。</string>
 
 </resources>
