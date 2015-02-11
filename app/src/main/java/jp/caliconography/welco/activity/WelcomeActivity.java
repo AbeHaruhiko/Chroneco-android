@@ -3,6 +3,9 @@ package jp.caliconography.welco.activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,9 +62,9 @@ public class WelcomeActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
-    // Upon interacting with UI controls, delay any scheduled hide()
-    // operations to prevent the jarring behavior of controls going away
-    // while interacting with the UI.
+    // チャイム用サウンドプール
+    private SoundPool mSoundPool;
+    private int mChimeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,5 +173,40 @@ public class WelcomeActivity extends Activity {
     public void onClickCallSomeone() {
         Intent intent = new Intent(this, MemberListActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.call_anyone)
+    public void onClickCallAnyone() {
+        playChime();
+    }
+
+    private void playChime() {
+        // 再生
+        mSoundPool.play(mChimeId, 1.0F, 1.0F, 0, 0, 1.0F);
+    }
+
+    @Override
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void onResume() {
+        super.onResume();
+        // 予め音声データを読み込む
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSoundPool = new SoundPool.Builder()
+                    .setMaxStreams(1)
+                    .setAudioAttributes(new AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).build()).build();
+        } else {
+            mSoundPool = new SoundPool(1, AudioManager.STREAM_SYSTEM, 0);
+        }
+
+        mChimeId = mSoundPool.load(getApplicationContext(), R.raw.se_maoudamashii_chime10, 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // リリース
+        mSoundPool.release();
     }
 }
