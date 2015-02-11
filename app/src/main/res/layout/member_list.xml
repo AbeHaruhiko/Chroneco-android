@@ -6,7 +6,7 @@
     <com.parse.ParseImageView
         android:id="@android:id/icon"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -20,6 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
         android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeightLarge" />
+        android:text="太郎さん"
+        android:layout_alignBottom="@android:id/icon" />
 
 </RelativeLayout>
