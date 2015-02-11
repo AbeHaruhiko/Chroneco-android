@@ -4,10 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
@@ -29,9 +26,10 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
                 return query;
             }
         });
-//
-//        this.setTextKey(Member.KEY_NAME);
-//        this.setImageKey(Member.KEY_PHOTO);
+        this.setPlaceholder(context.getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
+
+        this.setTextKey(Member.KEY_NAME);
+        this.setImageKey(Member.KEY_PHOTO);
     }
 
     @Override
@@ -41,9 +39,6 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
             convertView = View.inflate(getContext(), R.layout.member_list, null);
         }
         super.getItemView(member, convertView, parent);
-
-        TextView descriptionView = (TextView) convertView.findViewById(R.id.member_name);
-        descriptionView.setText(member.getName());
 
         // フェイドインアニメーション
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(convertView, ALPHA, TRANSPARENT, OPAQUE);

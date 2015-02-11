@@ -4,17 +4,17 @@
     android:layout_height="wrap_content">
 
     <com.parse.ParseImageView
-        android:id="@+id/icon"
+        android:id="@android:id/icon"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@+id/member_name"
+        android:id="@android:id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@android:id/icon"
         android:paddingLeft="3dip"
         android:paddingRight="3dip"
         android:textAppearance="?android:attr/textAppearanceListItem"
