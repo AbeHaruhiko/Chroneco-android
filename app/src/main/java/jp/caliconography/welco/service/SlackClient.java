@@ -30,7 +30,7 @@ public class SlackClient {
 
     public void sendMessage(String path, SlackMessage message) {
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+//                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(HTTPS_HOOKS_SLACK_COM)
                 .build();
 
