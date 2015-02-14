@@ -6,8 +6,9 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-import jp.caliconography.welco.activity.dummy.DummyContent;
 import jp.caliconography.welco.adapter.MemberAdapter;
+import jp.caliconography.welco.model.parseobject.Member;
+import jp.caliconography.welco.service.SlackClient;
 
 /**
  * A list fragment representing a list of Members. This fragment
@@ -98,9 +99,10 @@ public class MemberListFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        // Notify the active callbacks interface (the activity, if the
-        // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        Member clickedMember = (Member) listView.getAdapter().getItem(position);
+
+        new SlackClient().sendMessage(clickedMember.getSlackPath(),
+                new SlackClient.SlackMessage("来客です。", "Welco", ":ghost:"));
     }
 
     @Override
