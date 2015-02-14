@@ -30,4 +30,7 @@ dependencies {
 
     // need for parse
     compile 'com.parse.bolts:bolts-android:1.+'
+
+    // REST
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 }
