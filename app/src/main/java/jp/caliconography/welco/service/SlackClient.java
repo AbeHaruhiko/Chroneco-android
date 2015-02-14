@@ -25,7 +25,7 @@ public class SlackClient {
                          @Path("path2") String path2,
                          @Path("path3") String path3,
                          @Body SlackMessage message,
-                         Callback<Void> callback);
+                         Callback<Response> callback);
     }
 
     public void sendMessage(String path, SlackMessage message) {
@@ -38,10 +38,10 @@ public class SlackClient {
         service.sendMessage(path.split("/")[0], path.split("/")[1], path.split("/")[2], message, getCallback());
     }
 
-    private Callback<Void> getCallback() {
-        return new Callback<Void>() {
+    private Callback<Response> getCallback() {
+        return new Callback<Response>() {
             @Override
-            public void success(Void result, Response response) {
+            public void success(Response result, Response response) {
                 Log.i(TAG, "succeed.");
             }
 
