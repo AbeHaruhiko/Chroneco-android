@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="member_photo_height">80dp</dimen>
+    <dimen name="member_photo_width">80dp</dimen>
+    <dimen name="member_photo_margin">4dp</dimen>
+    <dimen name="member_name_padding">4dip</dimen>
+</resources>

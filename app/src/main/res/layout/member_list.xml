@@ -5,8 +5,9 @@
 
     <jp.caliconography.welco.widget.CircleParseImageView
         android:id="@android:id/icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/member_photo_width"
+        android:layout_height="@dimen/member_photo_height"
+        android:layout_margin="@dimen/member_photo_margin"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -15,8 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@android:id/icon"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip"
+        android:padding="@dimen/member_name_padding"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
         android:background="?android:attr/activatedBackgroundIndicator"
