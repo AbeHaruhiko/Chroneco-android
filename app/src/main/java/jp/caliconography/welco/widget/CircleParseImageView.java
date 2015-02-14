@@ -36,6 +36,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by abe on 2015/02/14.
+ * Based on SvgMaskedImageView.java
  */
 public class CircleParseImageView extends ParseImageView {
 
