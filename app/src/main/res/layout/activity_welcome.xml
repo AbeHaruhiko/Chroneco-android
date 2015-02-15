@@ -41,7 +41,7 @@
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:text="@string/call_someone"
                 android:layout_gravity="center" />
 
@@ -50,8 +50,17 @@
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:text="@string/call_anyone"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/settings"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/settings"
                 android:layout_gravity="center" />
 
         </LinearLayout>

@@ -7,5 +7,6 @@
     <string name="welcome_message">いらっしゃいませ！\n画面をタッチしてください。</string>
     <string name="title_member_list">Members</string>
     <string name="title_member_detail">Member Detail</string>
+    <string name="settings">settings</string>
 
 </resources>
