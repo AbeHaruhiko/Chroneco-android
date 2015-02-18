@@ -40,7 +40,23 @@
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".activity.admin.MemberListActivity"
+            android:label="@string/title_member_list"
+            android:parentActivityName=".activity.SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jp.caliconography.welco.activity.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".activity.admin.MemberDetailActivity"
+            android:label="@string/title_member_detail"
+            android:parentActivityName=".activity.admin.MemberListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="jp.caliconography.welco.activity.admin.MemberListActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -27,19 +27,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    compile 'com.jakewharton:butterknife:5.1.2'     // butter knife(view injection)
+    compile 'com.parse.bolts:bolts-android:1.+'     // need for parse
+    compile 'com.squareup.retrofit:retrofit:1.9.0'  // REST
+
+
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'    // test
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'       // test
+
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
-
-    // butter knife(view injection)
-    compile 'com.jakewharton:butterknife:5.1.2'
-
-    // need for parse
-    compile 'com.parse.bolts:bolts-android:1.+'
-
-    // REST
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-
-    // test
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
-    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 }
