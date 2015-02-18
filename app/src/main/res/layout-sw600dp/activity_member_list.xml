@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/member_list"
-        android:name="jp.caliconography.welco.activity.MemberListFragment"
+        android:name="jp.caliconography.welco.fragment.MemberListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

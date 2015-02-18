@@ -6,6 +6,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import jp.caliconography.welco.R;
+import jp.caliconography.welco.fragment.MemberListFragment;
 
 public class MemberListActivity extends FragmentActivity
         implements MemberListFragment.Callbacks {

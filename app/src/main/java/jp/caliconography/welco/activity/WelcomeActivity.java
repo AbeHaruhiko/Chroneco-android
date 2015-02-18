@@ -191,4 +191,10 @@ public class WelcomeActivity extends Activity {
         // リリース
         mChimePlayer.releaseSoundPool();
     }
+
+    @OnClick(R.id.settings)
+    public void onClickSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 }

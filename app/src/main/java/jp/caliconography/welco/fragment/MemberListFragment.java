@@ -1,4 +1,4 @@
-package jp.caliconography.welco.activity;
+package jp.caliconography.welco.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;

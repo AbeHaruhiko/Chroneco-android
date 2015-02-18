@@ -257,4 +257,15 @@ public class SettingsActivity extends PreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("sync_frequency"));
         }
     }
+
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        // 使用できる Fragment か確認する
+        if (GeneralPreferenceFragment.class.getName().equals(fragmentName) ||
+                NotificationPreferenceFragment.class.getName().equals(fragmentName) ||
+                DataSyncPreferenceFragment.class.getName().equals(fragmentName)) {
+            return true;
+        }
+        return false;
+    }
 }
