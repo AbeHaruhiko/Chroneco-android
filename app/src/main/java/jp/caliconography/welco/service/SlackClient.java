@@ -1,5 +1,6 @@
 package jp.caliconography.welco.service;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import retrofit.Callback;
@@ -28,7 +29,7 @@ public class SlackClient {
                          Callback<Response> callback);
     }
 
-    public void sendMessage(String path, SlackMessage message) {
+    public void sendMessage(@NonNull String path, @NonNull SlackMessage message) {
         RestAdapter restAdapter = new RestAdapter.Builder()
 //                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(HTTPS_HOOKS_SLACK_COM)
@@ -58,7 +59,7 @@ public class SlackClient {
         public String username;
         public String user_emoji;
 
-        public SlackMessage(String text, String username, String user_emoji) {
+        public SlackMessage(@NonNull String text, @NonNull String username, @NonNull String user_emoji) {
             this.text = text;
             this.username = username;
             this.user_emoji = user_emoji;

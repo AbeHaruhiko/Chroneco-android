@@ -2,12 +2,19 @@
 
     <!-- This preference simply launches an intent when selected. Use this UI sparingly, per
          design guidelines. -->
-    <Preference android:title="@string/pref_title_add_member">
-        <intent android:targetClass="" />
+    <Preference
+        android:key="add_member"
+        android:title="@string/pref_title_add_member">
+    <intent android:targetClass="" />
     </Preference>
 
-    <Preference android:title="@string/pref_title_edit_member">
-        <intent android:targetClass="" />
+    <Preference
+        android:key="edit_member"
+        android:title="@string/pref_title_edit_member">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="jp.caliconography.welco"
+            android:targetClass="jp.caliconography.welco.activity.admin.MemberListActivity" />
     </Preference>
 
 </PreferenceScreen>

@@ -16,7 +16,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
-            <intent-filter>
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,17 +26,9 @@
             android:name=".activity.MemberListActivity"
             android:label="@string/title_member_list"
             android:parentActivityName=".activity.WelcomeActivity">
-            <meta-data
+        <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jp.caliconography.welco.activity.WelcomeActivity" />
-        </activity>
-        <activity
-            android:name=".activity.MemberDetailActivity"
-            android:label="@string/title_member_detail"
-            android:parentActivityName=".activity.MemberListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="jp.caliconography.welco.activity.MemberListActivity" />
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
@@ -45,7 +37,7 @@
             android:name=".activity.admin.MemberListActivity"
             android:label="@string/title_member_list"
             android:parentActivityName=".activity.SettingsActivity">
-            <meta-data
+        <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jp.caliconography.welco.activity.SettingsActivity" />
         </activity>
@@ -53,7 +45,7 @@
             android:name=".activity.admin.MemberDetailActivity"
             android:label="@string/title_member_detail"
             android:parentActivityName=".activity.admin.MemberListActivity">
-            <meta-data
+        <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="jp.caliconography.welco.activity.admin.MemberListActivity" />
         </activity>

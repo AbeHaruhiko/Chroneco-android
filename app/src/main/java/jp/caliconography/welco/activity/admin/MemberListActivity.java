@@ -2,8 +2,8 @@ package jp.caliconography.welco.activity.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import jp.caliconography.welco.R;
@@ -24,7 +24,7 @@ import jp.caliconography.welco.R;
  * {@link MemberListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class MemberListActivity extends FragmentActivity
+public class MemberListActivity extends ActionBarActivity
         implements MemberListFragment.Callbacks {
 
     /**

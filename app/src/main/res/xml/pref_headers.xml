@@ -16,6 +16,6 @@
 
     <header
         android:fragment="jp.caliconography.welco.activity.SettingsActivity$MemberManagementPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
+        android:title="@string/pref_header_member_management" />
 
 </preference-headers>
