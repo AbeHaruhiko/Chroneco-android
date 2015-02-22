@@ -1,4 +1,4 @@
-package jp.caliconography.welco.activity.admin;
+package jp.caliconography.welco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,12 @@ import jp.caliconography.welco.R;
  * An activity representing a single Member detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link MemberListActivity}.
+ * in a {@link MemberListAdminActivity}.
  * <p/>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link MemberDetailFragment}.
+ * more than a {@link MemberDetailAdminFragment}.
  */
-public class MemberDetailActivity extends ActionBarActivity {
+public class MemberDetailAdminActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,9 @@ public class MemberDetailActivity extends ActionBarActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MemberDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(MemberDetailFragment.ARG_ITEM_ID));
-            MemberDetailFragment fragment = new MemberDetailFragment();
+            arguments.putString(MemberDetailAdminFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(MemberDetailAdminFragment.ARG_ITEM_ID));
+            MemberDetailAdminFragment fragment = new MemberDetailAdminFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.member_detail_container, fragment)
@@ -61,7 +61,7 @@ public class MemberDetailActivity extends ActionBarActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, MemberListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, MemberListAdminActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

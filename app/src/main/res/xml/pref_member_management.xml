@@ -8,7 +8,7 @@
         <intent
             android:action="android.intent.action.EDIT"
             android:targetPackage="jp.caliconography.welco"
-            android:targetClass="jp.caliconography.welco.activity.admin.MemberDetailActivity" />
+            android:targetClass="jp.caliconography.welco.activity.MemberDetailAdminActivity" />
     </Preference>
 
     <Preference
@@ -17,7 +17,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="jp.caliconography.welco"
-            android:targetClass="jp.caliconography.welco.activity.admin.MemberListActivity" />
+            android:targetClass="jp.caliconography.welco.activity.MemberListAdminActivity" />
     </Preference>
 
 </PreferenceScreen>

@@ -1,4 +1,4 @@
-package jp.caliconography.welco.activity.admin;
+package jp.caliconography.welco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,20 +12,20 @@ import jp.caliconography.welco.R;
  * An activity representing a list of Members. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link MemberDetailActivity} representing
+ * lead to a {@link MemberDetailAdminActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link MemberListFragment} and the item details
- * (if present) is a {@link MemberDetailFragment}.
+ * {@link MemberListAdminFragment} and the item details
+ * (if present) is a {@link MemberDetailAdminFragment}.
  * <p/>
  * This activity also implements the required
- * {@link MemberListFragment.Callbacks} interface
+ * {@link MemberListAdminFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class MemberListActivity extends ActionBarActivity
-        implements MemberListFragment.Callbacks {
+public class MemberListAdminActivity extends ActionBarActivity
+        implements MemberListAdminFragment.Callbacks {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -49,7 +49,7 @@ public class MemberListActivity extends ActionBarActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((MemberListFragment) getSupportFragmentManager()
+            ((MemberListAdminFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.member_list))
                     .setActivateOnItemClick(true);
         }
@@ -75,7 +75,7 @@ public class MemberListActivity extends ActionBarActivity
     }
 
     /**
-     * Callback method from {@link MemberListFragment.Callbacks}
+     * Callback method from {@link MemberListAdminFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override
@@ -85,8 +85,8 @@ public class MemberListActivity extends ActionBarActivity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MemberDetailFragment.ARG_ITEM_ID, id);
-            MemberDetailFragment fragment = new MemberDetailFragment();
+            arguments.putString(MemberDetailAdminFragment.ARG_ITEM_ID, id);
+            MemberDetailAdminFragment fragment = new MemberDetailAdminFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.member_detail_container, fragment)
@@ -95,8 +95,8 @@ public class MemberListActivity extends ActionBarActivity
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, MemberDetailActivity.class);
-            detailIntent.putExtra(MemberDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = new Intent(this, MemberDetailAdminActivity.class);
+            detailIntent.putExtra(MemberDetailAdminFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
     }

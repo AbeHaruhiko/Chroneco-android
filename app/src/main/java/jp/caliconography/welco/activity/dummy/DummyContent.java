@@ -1,4 +1,4 @@
-package jp.caliconography.welco.activity.admin.dummy;
+package jp.caliconography.welco.activity.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

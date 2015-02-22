@@ -1,4 +1,4 @@
-package jp.caliconography.welco.activity.admin;
+package jp.caliconography.welco.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import jp.caliconography.welco.R;
-import jp.caliconography.welco.activity.admin.dummy.DummyContent;
+import jp.caliconography.welco.activity.dummy.DummyContent;
 
 /**
  * A fragment representing a single Member detail screen.
- * This fragment is either contained in a {@link MemberListActivity}
- * in two-pane mode (on tablets) or a {@link MemberDetailActivity}
+ * This fragment is either contained in a {@link MemberListAdminActivity}
+ * in two-pane mode (on tablets) or a {@link MemberDetailAdminActivity}
  * on handsets.
  */
-public class MemberDetailFragment extends Fragment {
+public class MemberDetailAdminFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -32,7 +32,7 @@ public class MemberDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MemberDetailFragment() {
+    public MemberDetailAdminFragment() {
     }
 
     @Override

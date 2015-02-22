@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="jp.caliconography.welco.activity.admin.MemberListActivity">
+    tools:context="jp.caliconography.welco.activity.MemberListAdminActivity">
 
     <!--
     This layout is a two-pane layout for the Members
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/member_list"
-        android:name="jp.caliconography.welco.activity.admin.MemberListFragment"
+        android:name="jp.caliconography.welco.activity.MemberListAdminFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

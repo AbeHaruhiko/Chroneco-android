@@ -34,7 +34,7 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".activity.admin.MemberListActivity"
+            android:name=".activity.MemberListAdminActivity"
             android:label="@string/title_member_list"
             android:parentActivityName=".activity.SettingsActivity">
         <meta-data
@@ -42,12 +42,12 @@
                 android:value="jp.caliconography.welco.activity.SettingsActivity" />
         </activity>
         <activity
-            android:name=".activity.admin.MemberDetailActivity"
+            android:name=".activity.MemberDetailAdminActivity"
             android:label="@string/title_member_detail"
-            android:parentActivityName=".activity.admin.MemberListActivity">
-        <meta-data
+            android:parentActivityName=".activity.MemberListAdminActivity">
+            <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="jp.caliconography.welco.activity.admin.MemberListActivity" />
+                android:value=".activity.MemberListAdminActivity" />
         </activity>
     </application>
 
