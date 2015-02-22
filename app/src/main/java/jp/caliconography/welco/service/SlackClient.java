@@ -57,12 +57,12 @@ public class SlackClient {
         /* Gsonはクラス名は自由、変数名をJSONのKeyにすること */
         public String text;
         public String username;
-        public String user_emoji;
+        public String icon_emoji;
 
-        public SlackMessage(@NonNull String text, @NonNull String username, @NonNull String user_emoji) {
+        public SlackMessage(@NonNull String text, @NonNull String username, @NonNull String icon_emoji) {
             this.text = text;
             this.username = username;
-            this.user_emoji = user_emoji;
+            this.icon_emoji = icon_emoji;
         }
     }
 }

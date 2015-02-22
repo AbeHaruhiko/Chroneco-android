@@ -5,7 +5,10 @@
     <Preference
         android:key="add_member"
         android:title="@string/pref_title_add_member">
-    <intent android:targetClass="" />
+        <intent
+            android:action="android.intent.action.EDIT"
+            android:targetPackage="jp.caliconography.welco"
+            android:targetClass="jp.caliconography.welco.activity.admin.MemberDetailActivity" />
     </Preference>
 
     <Preference

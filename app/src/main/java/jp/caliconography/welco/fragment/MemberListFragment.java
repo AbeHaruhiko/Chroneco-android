@@ -8,13 +8,11 @@ import android.widget.ListView;
 
 import jp.caliconography.welco.adapter.MemberAdapter;
 import jp.caliconography.welco.model.parseobject.Member;
-import jp.caliconography.welco.service.SlackClient;
 
 /**
  * A list fragment representing a list of Members. This fragment
  * also supports tablet devices by allowing list items to be given an
- * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link MemberDetailFragment}.
+ * 'activated' state upon selection.
  * <p/>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
@@ -32,7 +30,7 @@ public class MemberListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(Member selectdMember) {
         }
     };
     /**
@@ -101,8 +99,9 @@ public class MemberListFragment extends ListFragment {
 
         Member clickedMember = (Member) listView.getAdapter().getItem(position);
 
-        new SlackClient().sendMessage(clickedMember.getSlackPath(),
-                new SlackClient.SlackMessage("来客です。", "Welco", ":ghost:"));
+        // Notify the active callbacks interface (the activity, if the
+        // fragment is attached to one) that an item has been selected.
+        mCallbacks.onItemSelected(clickedMember);
     }
 
     @Override
@@ -145,6 +144,6 @@ public class MemberListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(Member selectdMember);
     }
 }

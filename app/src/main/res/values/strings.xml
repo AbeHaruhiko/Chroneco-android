@@ -8,5 +8,6 @@
     <string name="title_member_list">Members</string>
     <string name="title_member_detail">Member Detail</string>
     <string name="settings">settings</string>
+    <string name="slack_msg_guest_has_come">来客です。</string>
 
 </resources>
