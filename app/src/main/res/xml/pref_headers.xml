@@ -3,19 +3,19 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="jp.caliconography.welco.activity.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="jp.caliconography.chronos.activity.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="jp.caliconography.welco.activity.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="jp.caliconography.chronos.activity.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="jp.caliconography.welco.activity.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="jp.caliconography.chronos.activity.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
     <header
-        android:fragment="jp.caliconography.welco.activity.SettingsActivity$MemberManagementPreferenceFragment"
+        android:fragment="jp.caliconography.chronos.activity.SettingsActivity$MemberManagementPreferenceFragment"
         android:title="@string/pref_header_member_management" />
 
 </preference-headers>

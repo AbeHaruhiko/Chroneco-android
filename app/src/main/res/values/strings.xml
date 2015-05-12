@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Welco</string>
+    <string name="app_name">Chronos</string>
     <string name="call_someone">呼び出す社員の名前がわかる\nお客様はこちら</string>
     <string name="call_anyone">その他のお客様はこちら\n（呼び鈴が鳴ります）</string>
-    <string name="welcome_message">いらっしゃいませ！\n画面をタッチしてください。</string>
+    <string name="welcome_message">おつかれさまです！\n画面をタッチしてください。</string>
     <string name="title_member_list">Members</string>
     <string name="title_member_detail">Member Detail</string>
     <string name="settings">settings</string>
