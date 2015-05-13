@@ -1,9 +1,54 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:caliconography="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/member_detail"
-    style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="jp.caliconography.chronos.fragment.MemberDetailAdminFragment" />
+    android:layout_height="match_parent">
+
+    <jp.caliconography.chronos.widget.CircleParseImageView
+        android:id="@android:id/icon"
+        android:layout_width="@dimen/member_photo_width"
+        android:layout_height="@dimen/member_photo_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/member_detail_photo_margin_top"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/com_facebook_profile_picture_blank_square" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@android:id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:clickable="true">
+
+        <view
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            class="jp.caliconography.chronos.widget.CustomFontButton"
+            android:id="@+id/in"
+            android:text="&#xf090; 出勤"
+            android:textSize="24sp"
+            caliconography:customFont="fontawesome-webfont.ttf"
+            android:background="@drawable/btn_common_back"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:clickable="true" />
+
+        <view
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            class="jp.caliconography.chronos.widget.CustomFontButton"
+            android:id="@+id/out"
+            android:text="&#xf08b; 退勤"
+            android:textSize="24sp"
+            caliconography:customFont="fontawesome-webfont.ttf"
+            android:background="@drawable/btn_common_back"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:clickable="true" />
+    </LinearLayout>
+
+</RelativeLayout>

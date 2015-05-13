@@ -42,6 +42,14 @@
                 android:value=".activity.SettingsActivity" />
         </activity>
         <activity
+            android:name=".activity.MemberDetailActivity"
+            android:label="@string/title_member_detail"
+            android:parentActivityName=".activity.MemberListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MemberListActivity" />
+        </activity>
+        <activity
             android:name=".activity.MemberDetailAdminActivity"
             android:label="@string/title_member_detail"
             android:parentActivityName=".activity.MemberListAdminActivity">

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import jp.caliconography.chronos.model.parseobject.InOutTime;
 import jp.caliconography.chronos.model.parseobject.Member;
 import jp.caliconography.chronos.model.parseobject.Post;
 
@@ -20,6 +21,7 @@ public class App extends Application {
 
         ParseObject.registerSubclass(Member.class);
         ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(InOutTime.class);
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
