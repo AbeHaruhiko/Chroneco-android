@@ -11,10 +11,10 @@ import jp.caliconography.chronos.model.parseobject.Post;
 /**
  * Created by abe on 2015/02/08.
  */
-public class app extends Application {
+public class App extends Application {
 
-    public static final String PARSE_APPLICATION_ID = "Ikzt3vnq6LwIKSb4WDP8RkOcUW3wRlsQuLUlrrFN";
-    public static final String PARSE_CLIENT_KEY = "2mBGwz3A3YD8SMo1UuKXD6M9wEl9QOCUkBV1KDf6";
+    public static final String PARSE_APPLICATION_ID = "mQeWb7iTmJSAcUjkSGwPT52D8bCJ6jfeevEk8tm6";
+    public static final String PARSE_CLIENT_KEY = "IDai8FC4G4QfH94itzYghmucc9LFgoMXrHqXmidB";
 
     public void onCreate() {
 
