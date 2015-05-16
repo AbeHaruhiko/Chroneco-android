@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="jp.caliconography.chronos.activity.MemberListAdminActivity">
+    tools:context="jp.caliconography.chroneco.activity.MemberListAdminActivity">
 
     <!--
     This layout is a two-pane layout for the Members
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/member_list"
-        android:name="jp.caliconography.chronos.fragment.MemberListAdminFragment"
+        android:name="jp.caliconography.chroneco.fragment.MemberListAdminFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

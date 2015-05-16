@@ -1,78 +1,77 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:caliconography="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <jp.caliconography.chronos.widget.CircleParseImageView
+    <jp.caliconography.chroneco.widget.CircleParseImageView
         android:id="@android:id/icon"
         android:layout_width="@dimen/member_photo_width"
         android:layout_height="@dimen/member_photo_height"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/member_detail_photo_margin_top"
-        android:layout_centerHorizontal="true"
         android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@android:id/icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:clickable="true"
-        android:id="@+id/linearLayout">
+        android:orientation="horizontal">
 
         <view
+            android:id="@+id/in"
+            class="jp.caliconography.chroneco.widget.CustomFontButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            class="jp.caliconography.chronos.widget.CustomFontButton"
-            android:id="@+id/in"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_common_back"
+            android:clickable="true"
+            android:padding="20dp"
             android:text="&#xf090; 出勤"
             android:textSize="24sp"
-            caliconography:customFont="fontawesome-webfont.ttf"
-            android:background="@drawable/btn_common_back"
-            android:padding="20dp"
-            android:layout_weight="1"
-            android:layout_margin="20dp"
-            android:clickable="true" />
+            caliconography:customFont="fontawesome-webfont.ttf" />
 
         <view
+            android:id="@+id/out"
+            class="jp.caliconography.chroneco.widget.CustomFontButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            class="jp.caliconography.chronos.widget.CustomFontButton"
-            android:id="@+id/out"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_common_back"
+            android:clickable="true"
+            android:padding="20dp"
             android:text="&#xf08b; 退勤"
             android:textSize="24sp"
-            caliconography:customFont="fontawesome-webfont.ttf"
-            android:background="@drawable/btn_common_back"
-            android:padding="20dp"
-            android:layout_weight="1"
-            android:layout_margin="20dp"
-            android:clickable="true" />
+            caliconography:customFont="fontawesome-webfont.ttf" />
     </LinearLayout>
 
     <EditText
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/comment"
-        android:layout_toStartOf="@+id/save_comment"
         android:layout_below="@+id/linearLayout"
+        android:layout_margin="20dp"
         android:layout_toLeftOf="@+id/save_comment"
-        android:layout_margin="20dp" />
+        android:layout_toStartOf="@+id/save_comment" />
 
     <view
+        android:id="@+id/save_comment"
+        class="jp.caliconography.chroneco.widget.CustomFontButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        class="jp.caliconography.chronos.widget.CustomFontButton"
-        android:id="@+id/save_comment"
-        android:layout_alignTop="@+id/comment"
-        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/comment"
         android:layout_alignParentEnd="true"
-        caliconography:customFont="fontawesome-webfont.ttf"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/comment"
+        android:layout_marginRight="20dp"
         android:background="@drawable/btn_common_back"
         android:text="&#xf040;"
-        android:layout_alignBottom="@+id/comment"
-        android:layout_marginRight="20dp" />
+        caliconography:customFont="fontawesome-webfont.ttf" />
 
 </RelativeLayout>

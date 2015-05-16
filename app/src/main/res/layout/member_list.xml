@@ -3,45 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <jp.caliconography.chronos.widget.CircleParseImageView
+    <jp.caliconography.chroneco.widget.CircleParseImageView
         android:id="@android:id/icon"
         android:layout_width="@dimen/member_photo_width"
         android:layout_height="@dimen/member_photo_height"
-        android:layout_margin="@dimen/member_photo_margin"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/member_photo_margin" />
 
     <TextView
         android:id="@+id/member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/in_or_out_time"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@android:id/icon"
-        android:padding="@dimen/member_name_padding"
-        android:textAppearance="?android:attr/textAppearanceListItem"
         android:background="?android:attr/activatedBackgroundIndicator"
+        android:gravity="center_vertical"
+        android:padding="@dimen/member_name_padding"
         android:text="太郎さん"
-        android:layout_above="@+id/in_or_out_time"
-        android:gravity="center_vertical" />
+        android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <TextView
+        android:id="@+id/in_or_out_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="08:46"
-        android:id="@+id/in_or_out_time"
         android:layout_alignBottom="@android:id/icon"
+        android:layout_toEndOf="@android:id/icon"
         android:layout_toRightOf="@android:id/icon"
-        android:layout_toEndOf="@android:id/icon" />
+        android:text="08:46"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="おはようござります。"
-        android:id="@+id/comment"
         android:layout_below="@+id/member_name"
-        android:layout_toRightOf="@+id/in_or_out_time"
+        android:layout_marginLeft="8dp"
         android:layout_toEndOf="@+id/in_or_out_time"
-        android:layout_marginLeft="8dp" />
+        android:layout_toRightOf="@+id/in_or_out_time"
+        android:text="おはようござります。"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

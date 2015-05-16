@@ -1,9 +1,9 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/member_list"
-    android:name="jp.caliconography.chronos.fragment.MemberListFragment"
+    android:name="jp.caliconography.chroneco.fragment.MemberListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    tools:context="jp.caliconography.chronos.activity.MemberListActivity" />
+    tools:context="jp.caliconography.chroneco.activity.MemberListActivity" />

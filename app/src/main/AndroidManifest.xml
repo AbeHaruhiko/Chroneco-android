@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.caliconography.chronos">
+    package="jp.caliconography.chroneco">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".App"
+        android:name="jp.caliconography.chroneco.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name="jp.caliconography.chroneco.activity.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
         </activity>
         <activity
-            android:name=".activity.MemberListActivity"
+            android:name="jp.caliconography.chroneco.activity.MemberListActivity"
             android:label="@string/title_member_list"
-            android:parentActivityName=".activity.WelcomeActivity">
+            android:parentActivityName="jp.caliconography.chroneco.activity.WelcomeActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activity.WelcomeActivity" />
+                android:value="jp.caliconography.chroneco.activity.WelcomeActivity" />
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="jp.caliconography.chroneco.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".activity.MemberListAdminActivity"
+            android:name="jp.caliconography.chroneco.activity.MemberListAdminActivity"
             android:label="@string/title_member_list"
-            android:parentActivityName=".activity.SettingsActivity">
+            android:parentActivityName="jp.caliconography.chroneco.activity.SettingsActivity">
         <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.SettingsActivity" />
+            android:value="jp.caliconography.chroneco.activity.SettingsActivity" />
         </activity>
         <activity
-            android:name=".activity.MemberDetailActivity"
+            android:name="jp.caliconography.chroneco.activity.MemberDetailActivity"
             android:label="@string/title_member_detail"
-            android:parentActivityName=".activity.MemberListActivity">
+            android:parentActivityName="jp.caliconography.chroneco.activity.MemberListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MemberListActivity" />
+                android:value="jp.caliconography.chroneco.activity.MemberListActivity" />
         </activity>
         <activity
-            android:name=".activity.MemberDetailAdminActivity"
+            android:name="jp.caliconography.chroneco.activity.MemberDetailAdminActivity"
             android:label="@string/title_member_detail"
-            android:parentActivityName=".activity.MemberListAdminActivity">
+            android:parentActivityName="jp.caliconography.chroneco.activity.MemberListAdminActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MemberListAdminActivity" />
+                android:value="jp.caliconography.chroneco.activity.MemberListAdminActivity" />
         </activity>
         <activity
-            android:name=".activity.LoginDispatchActivity"
+            android:name="jp.caliconography.chroneco.activity.LoginDispatchActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
