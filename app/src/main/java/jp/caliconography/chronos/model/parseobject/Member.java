@@ -16,6 +16,7 @@ public class Member extends ParseObject {
     public static final String KEY_POST = "post";
     public static final String KEY_DISP_ORDER = "dispOrder";
     public static final String KEY_SLACK_PATH = "slackPath";
+    public static final String KEY_COMMENT = "comment";
 
     public String getName() {
         return getString(KEY_NAME);
@@ -55,5 +56,13 @@ public class Member extends ParseObject {
 
     public void setSlackPath(String path) {
         put(KEY_SLACK_PATH, path);
+    }
+
+    public String getComment() {
+        return getString(KEY_COMMENT);
+    }
+
+    public void setComment(String comment) {
+        put(KEY_COMMENT, comment);
     }
 }

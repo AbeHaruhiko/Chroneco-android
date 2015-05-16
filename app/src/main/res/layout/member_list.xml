@@ -11,16 +11,37 @@
         android:layout_alignParentLeft="true" />
 
     <TextView
-        android:id="@android:id/text1"
+        android:id="@+id/member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@android:id/icon"
         android:padding="@dimen/member_name_padding"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="center_vertical"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:text="太郎さん"
-        android:layout_alignBottom="@android:id/icon" />
+        android:layout_above="@+id/in_or_out_time"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="08:46"
+        android:id="@+id/in_or_out_time"
+        android:layout_alignBottom="@android:id/icon"
+        android:layout_toRightOf="@android:id/icon"
+        android:layout_toEndOf="@android:id/icon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="おはようござります。"
+        android:id="@+id/comment"
+        android:layout_below="@+id/member_name"
+        android:layout_toRightOf="@+id/in_or_out_time"
+        android:layout_toEndOf="@+id/in_or_out_time"
+        android:layout_marginLeft="8dp" />
 
 </RelativeLayout>

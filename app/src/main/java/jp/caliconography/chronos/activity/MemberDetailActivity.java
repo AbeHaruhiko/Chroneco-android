@@ -5,18 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
-import android.widget.Button;
 
-import com.parse.ParseException;
-import com.parse.SaveCallback;
-
-import java.util.Date;
-
-import butterknife.OnClick;
 import jp.caliconography.chronos.R;
 import jp.caliconography.chronos.fragment.MemberDetailAdminFragment;
 import jp.caliconography.chronos.fragment.MemberDetailFragment;
-import jp.caliconography.chronos.model.parseobject.InOutTime;
 
 /**
  * An activity representing a single Member detail screen. This
@@ -50,7 +42,7 @@ public class MemberDetailActivity extends ActionBarActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MemberDetailFragment.ARG_ITEM_ID,
+            arguments.putString(MemberDetailFragment.CURRENT_MEMBER_ID,
                     getIntent().getStringExtra(MemberDetailAdminFragment.ARG_ITEM_ID));
             MemberDetailFragment fragment = new MemberDetailFragment();
             fragment.setArguments(arguments);

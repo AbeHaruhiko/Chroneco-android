@@ -10,7 +10,6 @@ import jp.caliconography.chronos.R;
 import jp.caliconography.chronos.fragment.MemberDetailFragment;
 import jp.caliconography.chronos.fragment.MemberListFragment;
 import jp.caliconography.chronos.model.parseobject.Member;
-import jp.caliconography.chronos.service.SlackClient;
 
 public class MemberListActivity extends FragmentActivity
         implements MemberListFragment.Callbacks {
@@ -55,7 +54,7 @@ public class MemberListActivity extends FragmentActivity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MemberDetailFragment.ARG_ITEM_ID, selectedMember.getObjectId());
+            arguments.putString(MemberDetailFragment.CURRENT_MEMBER_ID, selectedMember.getObjectId());
             MemberDetailFragment fragment = new MemberDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -70,7 +69,7 @@ public class MemberListActivity extends FragmentActivity
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, MemberDetailActivity.class);
-            detailIntent.putExtra(MemberDetailFragment.ARG_ITEM_ID, selectedMember.getObjectId());
+            detailIntent.putExtra(MemberDetailFragment.CURRENT_MEMBER_ID, selectedMember.getObjectId());
             startActivity(detailIntent);
         }
     }

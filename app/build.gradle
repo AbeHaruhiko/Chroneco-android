@@ -37,4 +37,15 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
+
+    // Module dependency on ParseLoginUI library sources
+    compile project(':ParseLoginUI')
+
+    // If your app's project does not have the Parse Android SDK already, copy it into your
+    // project at YOUR_PROJECT_LIBS_PATH.
+    compile files('lib/Parse-1.9.2.jar')
+    compile files('lib/ParseFacebookUtilsV4-1.9.2.jar')
+
+    // Uncomment if using Facebook Login (optional Maven dependency)
+    // compile 'com.facebook.android:facebook-android-sdk:4.0.1'
 }
