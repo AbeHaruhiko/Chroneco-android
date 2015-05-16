@@ -21,7 +21,7 @@ public class App extends Application {
 
     public void onCreate() {
 
-        ParseUser.enableAutomaticUser();
+//        ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access while disabling public write access.
         // defaultACL.setPublicReadAccess(true);
