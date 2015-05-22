@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -52,6 +53,9 @@ public class MemberDetailFragment extends Fragment {
     @InjectView(android.R.id.icon)
     CircleParseImageView mIcon;
 
+    @InjectView(R.id.member_name)
+    TextView mMemberName;
+
     /**
      * The dummy content this fragment is presenting.
      */
@@ -86,21 +90,12 @@ public class MemberDetailFragment extends Fragment {
 
         ButterKnife.inject(this, rootView);
 
+        // アイコンロード
         mIcon.setParseFile(mMember.getPhotoFile());
         mIcon.loadInBackground();
-//        Button inButton = (Button) rootView.findViewById(R.id.in);
-//        inButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Date now = new Date();
-//                InOutTime inTime = new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, now, null);
-//                inTime.saveInBackground(new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-//                    }
-//                });
-//            }
-//        });
+
+        // 名前セット
+        mMemberName.setText(mMember.getName());
 
         return rootView;
     }
@@ -155,37 +150,6 @@ public class MemberDetailFragment extends Fragment {
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
         ParseQuery<InOutTime> query = getNewestInOutTimeParseQuery();
-//        query.getFirstInBackground(new GetCallback<InOutTime>() {
-//            @Override
-//            public void done(InOutTime newestRecord, ParseException e) {
-//
-//                final SaveCallback outButtonSaveCallback = new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-////                        onClickSaveComment();
-//                        outButton.setEnabled(true);
-//                    }
-//                };
-//
-//                if (existsSameDateRecord(newestRecord, now)) {
-//                    // 今日のレコードがある
-//                    updateOutTime(newestRecord, outButtonSaveCallback);
-//                } else {
-//                    // 今日のレコードがない
-//                    createOutTime(outButtonSaveCallback);
-//                }
-//            }
-//
-//            private void updateOutTime(InOutTime newestRecord, SaveCallback inButtonSaveCallback) {
-//                newestRecord.setOut(now);
-//                newestRecord.saveInBackground(inButtonSaveCallback);
-//            }
-//
-//            private void createOutTime(SaveCallback inButtonSaveCallback) {
-//                InOutTime outTime = new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, now);
-//                outTime.saveInBackground(inButtonSaveCallback);
-//            }
-//        });
 
         getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
