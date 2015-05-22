@@ -67,9 +67,9 @@ public class ParseObjectAsyncUtil {
 
     public static Task<List<ParseObject>> findAsync(ParseQuery query) {
         final Task<List<ParseObject>>.TaskCompletionSource task = Task.<List<ParseObject>>create();
-        query.findInBackground(new FindCallback() {
+        query.findInBackground(new FindCallback<ParseObject>() {
             @Override
-            public void done(List list, ParseException e) {
+            public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     task.setResult(list);
                 } else {
@@ -81,24 +81,24 @@ public class ParseObjectAsyncUtil {
         return task.getTask();
     }
 
-    public static Task<List<ParseObject>> find(ParseQuery query) {
-        final Task<List<ParseObject>>.TaskCompletionSource task = Task.<List<ParseObject>>create();
-        try {
-            task.setResult(query.find());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            task.setError(e);
-        }
-        return task.getTask();
-    }
+//    public static Task<List<ParseObject>> find(ParseQuery query) {
+//        final Task<List<ParseObject>>.TaskCompletionSource task = Task.<List<ParseObject>>create();
+//        try {
+//            task.setResult(query.find());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            task.setError(e);
+//        }
+//        return task.getTask();
+//    }
 
     public static Task<ParseObject> fetchAsync(final ParseObject obj) {
         final Task<ParseObject>.TaskCompletionSource task = Task.<ParseObject>create();
         if (obj == null) {
             task.setResult(null);
         } else {
-            obj.fetchInBackground(new GetCallback() {
-                @Override
+            obj.fetchInBackground(new GetCallback<ParseObject>() {
+
                 public void done(ParseObject parseObject, ParseException e) {
                     if (e == null) {
                         task.setResult(parseObject);
@@ -108,6 +108,22 @@ public class ParseObjectAsyncUtil {
                 }
             });
         }
+        return task.getTask();
+    }
+
+    public static Task<ParseObject> getFirstAsync(final ParseQuery query) {
+        final Task<ParseObject>.TaskCompletionSource task = Task.<ParseObject>create();
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    task.setResult(parseObject);
+                } else {
+                    task.setError(e);
+                }
+            }
+
+        });
         return task.getTask();
     }
 
