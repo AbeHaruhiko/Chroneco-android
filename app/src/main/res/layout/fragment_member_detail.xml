@@ -51,27 +51,27 @@
             caliconography:customFont="fontawesome-webfont.ttf" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_margin="20dp"
-        android:layout_toLeftOf="@+id/save_comment"
-        android:layout_toStartOf="@+id/save_comment" />
+    <!--<EditText-->
+        <!--android:id="@+id/comment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/linearLayout"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:layout_toLeftOf="@+id/save_comment"-->
+        <!--android:layout_toStartOf="@+id/save_comment" />-->
 
-    <view
-        android:id="@+id/save_comment"
-        class="jp.caliconography.chroneco.widget.CustomFontButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/comment"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/comment"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/btn_common_back"
-        android:text="&#xf040;"
-        caliconography:customFont="fontawesome-webfont.ttf" />
+    <!--<view-->
+        <!--android:id="@+id/save_comment"-->
+        <!--class="jp.caliconography.chroneco.widget.CustomFontButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/comment"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignTop="@+id/comment"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:background="@drawable/btn_common_back"-->
+        <!--android:text="&#xf040;"-->
+        <!--caliconography:customFont="fontawesome-webfont.ttf" />-->
 
 </RelativeLayout>

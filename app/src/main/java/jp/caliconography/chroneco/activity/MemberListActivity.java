@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import jp.caliconography.chroneco.R;
 import jp.caliconography.chroneco.fragment.MemberDetailFragment;
+import jp.caliconography.chroneco.fragment.MemberListAdminFragment;
 import jp.caliconography.chroneco.fragment.MemberListFragment;
 import jp.caliconography.chroneco.model.parseobject.Member;
 
@@ -24,6 +25,20 @@ public class MemberListActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_list);
+
+        if (findViewById(R.id.member_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-large and
+            // res/values-sw600dp). If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+
+            // In two-pane mode, list items should be given the
+            // 'activated' state when touched.
+//            ((MemberListFragment) getSupportFragmentManager()
+//                    .findFragmentById(R.id.member_list))
+//                    .setActivateOnItemClick(true);
+        }
     }
 
     @Override

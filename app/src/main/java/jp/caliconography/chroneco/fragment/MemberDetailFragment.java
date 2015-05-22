@@ -107,7 +107,7 @@ public class MemberDetailFragment extends Fragment {
                 final SaveCallback inButtonSaveCallback = new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        onClickSaveComment();
+//                        onClickSaveComment();
                         inButton.setEnabled(true);
                     }
                 };
@@ -148,7 +148,7 @@ public class MemberDetailFragment extends Fragment {
                 final SaveCallback outButtonSaveCallback = new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        onClickSaveComment();
+//                        onClickSaveComment();
                         outButton.setEnabled(true);
                     }
                 };
@@ -174,11 +174,11 @@ public class MemberDetailFragment extends Fragment {
         });
     }
 
-    @OnClick(R.id.save_comment)
-    public void onClickSaveComment() {
-        mMember.setComment(mComment.getText().toString());
-        mMember.saveInBackground();
-    }
+//    @OnClick(R.id.save_comment)
+//    public void onClickSaveComment() {
+//        mMember.setComment(mComment.getText().toString());
+//        mMember.saveInBackground();
+//    }
 
     /**
      * 1件以上のレコードが存在している && そのレコードは今日のレコード
