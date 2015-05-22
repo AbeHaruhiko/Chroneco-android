@@ -187,7 +187,7 @@ public class MemberDetailFragment extends Fragment {
 //            }
 //        });
 
-        getFirstAsync(query).onSuccessTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
+        getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
