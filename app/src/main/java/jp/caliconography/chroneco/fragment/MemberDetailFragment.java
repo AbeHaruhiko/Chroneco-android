@@ -16,6 +16,8 @@ import com.parse.SaveCallback;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import bolts.Continuation;
+import bolts.Task;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -25,7 +27,12 @@ import jp.caliconography.chroneco.activity.MemberListAdminActivity;
 import jp.caliconography.chroneco.activity.dummy.DummyContent;
 import jp.caliconography.chroneco.model.parseobject.InOutTime;
 import jp.caliconography.chroneco.model.parseobject.Member;
+import jp.caliconography.chroneco.service.SlackClient;
+import jp.caliconography.chroneco.util.parse.ParseObjectAsyncProcResult;
 import jp.caliconography.chroneco.widget.CircleParseImageView;
+
+import static jp.caliconography.chroneco.util.parse.ParseObjectAsyncUtil.getFirstAsync;
+import static jp.caliconography.chroneco.util.parse.ParseObjectAsyncUtil.saveAsync;
 
 /**
  * A fragment representing a single Member detail screen.
@@ -148,37 +155,77 @@ public class MemberDetailFragment extends Fragment {
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
         ParseQuery<InOutTime> query = getNewestInOutTimeParseQuery();
-        query.getFirstInBackground(new GetCallback<InOutTime>() {
+//        query.getFirstInBackground(new GetCallback<InOutTime>() {
+//            @Override
+//            public void done(InOutTime newestRecord, ParseException e) {
+//
+//                final SaveCallback outButtonSaveCallback = new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+////                        onClickSaveComment();
+//                        outButton.setEnabled(true);
+//                    }
+//                };
+//
+//                if (existsSameDateRecord(newestRecord, now)) {
+//                    // 今日のレコードがある
+//                    updateOutTime(newestRecord, outButtonSaveCallback);
+//                } else {
+//                    // 今日のレコードがない
+//                    createOutTime(outButtonSaveCallback);
+//                }
+//            }
+//
+//            private void updateOutTime(InOutTime newestRecord, SaveCallback inButtonSaveCallback) {
+//                newestRecord.setOut(now);
+//                newestRecord.saveInBackground(inButtonSaveCallback);
+//            }
+//
+//            private void createOutTime(SaveCallback inButtonSaveCallback) {
+//                InOutTime outTime = new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, now);
+//                outTime.saveInBackground(inButtonSaveCallback);
+//            }
+//        });
+
+        getFirstAsync(query).onSuccessTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
-            public void done(InOutTime newestRecord, ParseException e) {
-
-                final SaveCallback outButtonSaveCallback = new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-//                        onClickSaveComment();
-                        outButton.setEnabled(true);
-                    }
-                };
-
+            public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
+                final InOutTime newestRecord = (InOutTime) task.getResult();
+                InOutTime inTime = newestRecord;
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
-                    updateOutTime(newestRecord, outButtonSaveCallback);
+                    updateOutTime(newestRecord);
                 } else {
                     // 今日のレコードがない
-                    createOutTime(outButtonSaveCallback);
+                    inTime = createOutTime();
                 }
+
+                return saveAsync(inTime);
             }
 
-            private void updateOutTime(InOutTime newestRecord, SaveCallback inButtonSaveCallback) {
+            private void updateOutTime(InOutTime newestRecord) {
                 newestRecord.setOut(now);
-                newestRecord.saveInBackground(inButtonSaveCallback);
             }
 
-            private void createOutTime(SaveCallback inButtonSaveCallback) {
-                InOutTime outTime = new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, now);
-                outTime.saveInBackground(inButtonSaveCallback);
+            private InOutTime createOutTime() {
+                return new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, now);
+            }
+
+        }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
+            @Override
+            public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
+
+                outButton.setEnabled(true);
+
+                // TODO: fetch???
+                new SlackClient().sendMessage(mMember.getSlackPath(),
+                        new SlackClient.SlackMessage(getString(R.string.slack_msg_guest_has_come),
+                                getString(R.string.app_name), ":gohst:"));
+
+                return null;
             }
         });
+
     }
 
 //    @OnClick(R.id.save_comment)
