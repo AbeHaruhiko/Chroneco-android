@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -26,6 +25,7 @@ import jp.caliconography.chroneco.activity.MemberListAdminActivity;
 import jp.caliconography.chroneco.activity.dummy.DummyContent;
 import jp.caliconography.chroneco.model.parseobject.InOutTime;
 import jp.caliconography.chroneco.model.parseobject.Member;
+import jp.caliconography.chroneco.widget.CircleParseImageView;
 
 /**
  * A fragment representing a single Member detail screen.
@@ -39,8 +39,12 @@ public class MemberDetailFragment extends Fragment {
      * represents.
      */
     public static final String CURRENT_MEMBER_ID = "item_id";
-    @InjectView(R.id.comment)
-    TextView mComment;
+    //    @InjectView(R.id.comment)
+//    TextView mComment;
+//
+    @InjectView(android.R.id.icon)
+    CircleParseImageView mIcon;
+
     /**
      * The dummy content this fragment is presenting.
      */
@@ -64,6 +68,7 @@ public class MemberDetailFragment extends Fragment {
             // to load content from a content provider.
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(CURRENT_MEMBER_ID));
             mMember = ParseObject.createWithoutData(Member.class, getArguments().getString(CURRENT_MEMBER_ID));
+
         }
     }
 
@@ -74,6 +79,8 @@ public class MemberDetailFragment extends Fragment {
 
         ButterKnife.inject(this, rootView);
 
+        mIcon.setParseFile(mMember.getPhotoFile());
+        mIcon.loadInBackground();
 //        Button inButton = (Button) rootView.findViewById(R.id.in);
 //        inButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
