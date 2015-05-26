@@ -29,37 +29,36 @@ import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
-
-import com.parse.ParseImageView;
+import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 
 /**
  * 注意：このクラスはリストで使うとスクロール時に同じ画像が複数回表示されるなどの不具合がある
- *
- * Created by abe on 2015/02/14.
+ * <p/>
+ * Created by abe on 2015/05/25.
  * Based on SvgMaskedImageView.java
  */
-public class CircleParseImageView extends ParseImageView {
+public class CircleImageView extends ImageView {
 
-    private static final String TAG = CircleParseImageView.class.getSimpleName();
+    private static final String TAG = CircleImageView.class.getSimpleName();
 
     private static final Xfermode sXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
     private Paint mPaint;
     private WeakReference<Bitmap> mWeakBitmap;
     private Bitmap mMaskBitmap;
 
-    public CircleParseImageView(Context context) {
+    public CircleImageView(Context context) {
         super(context);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CircleParseImageView(Context context, AttributeSet attrs) {
+    public CircleImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
 
-    public CircleParseImageView(Context context, AttributeSet attrs, int defStyle) {
+    public CircleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }

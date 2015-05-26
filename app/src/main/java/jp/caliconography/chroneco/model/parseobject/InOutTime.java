@@ -26,9 +26,18 @@ public class InOutTime extends ParseObject {
 
     public InOutTime(@NonNull String memberObjectId, Date date, Date in, Date out) {
         setMember(memberObjectId);
-        setDate(date);
-        setIn(in);
-        setOut(out);
+
+        if (date != null) {
+            setDate(date);
+        }
+
+        if (in != null) {
+            setIn(in);
+        }
+
+        if (out != null) {
+            setOut(out);
+        }
     }
 
     public static InOutTime createInTime(@NonNull String memberObjectId, @NonNull Date inTime) {
