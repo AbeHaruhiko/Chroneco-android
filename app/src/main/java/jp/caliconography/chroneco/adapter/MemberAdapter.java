@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
-import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import jp.caliconography.chroneco.R;
 import jp.caliconography.chroneco.model.parseobject.Member;
 
@@ -32,7 +33,8 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         this.setPlaceholder(context.getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
 
         this.setTextKey(Member.KEY_NAME);
-//        this.setImageKey(Member.KEY_PHOTO);
+
+        this.setObjectsPerPage(30);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         TextView time = (TextView) convertView.findViewById(R.id.in_or_out_time);
         TextView comment = (TextView) convertView.findViewById(R.id.comment);
         TextView name = (TextView) convertView.findViewById(R.id.member_name);
-        ParseImageView icon = (ParseImageView) convertView.findViewById(android.R.id.icon);
+        CircleImageView icon = (CircleImageView) convertView.findViewById(android.R.id.icon);
 
         comment.setText(member.getComment());
         name.setText(member.getName());
@@ -54,11 +56,14 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         ParseFile iconFile = member.getPhotoFile();
         if (iconFile == null) {
             // アイコンが登録されていない場合はプレースホルダを表示。
-            // これをやらないとスクロール時に関係ないデータに画像がセットされる。
             icon.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
         } else {
-            icon.setParseFile(iconFile);
-            icon.loadInBackground();
+//            icon.setParseFile(iconFile);
+//            icon.loadInBackground();
+            Picasso.with(getContext())
+                    .load(iconFile.getUrl())
+                    .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
+                    .into(icon);
         }
 
         // フェイドインアニメーション
