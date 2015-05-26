@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.Date;
 
@@ -36,6 +37,18 @@ public class InOutTime extends ParseObject {
 
     public static InOutTime createOutTime(@NonNull String memberObjectId, @NonNull Date outTime) {
         return new InOutTime(memberObjectId, outTime, null, outTime);
+    }
+
+    /**
+     * InOutTimeの最新レコードを取得するためのParseQueryを取得
+     *
+     * @return InOutTimeの最新レコードを取得するためのParseQuery
+     */
+    public static ParseQuery<InOutTime> getNewestInOutTimeParseQuery(String memberObjectId) {
+        ParseQuery<InOutTime> query = ParseQuery.getQuery(InOutTime.class);
+        query.whereEqualTo(InOutTime.KEY_MEMBER, ParseObject.createWithoutData(Member.class, memberObjectId));
+        query.addDescendingOrder(InOutTime.KEY_DATE);
+        return query;
     }
 
     public void setMember(@NonNull String memberObjectId) {

@@ -12,5 +12,7 @@
     <string name="slack_msg_in_out_time">%1$tm/%1$tdの%3$s時刻は%2$tRです。</string>
     <string name="in">出勤</string>
     <string name="out">退勤</string>
+    <string name="label_in_btn"> 出勤</string>
+    <string name="label_out_btn"> 退勤</string>
 
 </resources>

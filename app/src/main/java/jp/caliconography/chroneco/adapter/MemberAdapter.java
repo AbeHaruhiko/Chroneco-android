@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
@@ -30,7 +32,7 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         this.setPlaceholder(context.getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
 
         this.setTextKey(Member.KEY_NAME);
-        this.setImageKey(Member.KEY_PHOTO);
+//        this.setImageKey(Member.KEY_PHOTO);
     }
 
     @Override
@@ -44,9 +46,20 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         TextView time = (TextView) convertView.findViewById(R.id.in_or_out_time);
         TextView comment = (TextView) convertView.findViewById(R.id.comment);
         TextView name = (TextView) convertView.findViewById(R.id.member_name);
+        ParseImageView icon = (ParseImageView) convertView.findViewById(android.R.id.icon);
 
         comment.setText(member.getComment());
         name.setText(member.getName());
+
+        ParseFile iconFile = member.getPhotoFile();
+        if (iconFile == null) {
+            // アイコンが登録されていない場合はプレースホルダを表示。
+            // これをやらないとスクロール時に関係ないデータに画像がセットされる。
+            icon.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+        } else {
+            icon.setParseFile(iconFile);
+            icon.loadInBackground();
+        }
 
         // フェイドインアニメーション
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(convertView, ALPHA, TRANSPARENT, OPAQUE);

@@ -105,7 +105,7 @@ public class MemberDetailFragment extends Fragment {
         inButton.setEnabled(false);
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
-        ParseQuery<InOutTime> query = getNewestInOutTimeParseQuery();
+        ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
 
         getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
@@ -154,7 +154,7 @@ public class MemberDetailFragment extends Fragment {
         outButton.setEnabled(false);
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
-        ParseQuery<InOutTime> query = getNewestInOutTimeParseQuery();
+        ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
 
         getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
@@ -230,15 +230,5 @@ public class MemberDetailFragment extends Fragment {
         return dateString1.equals(dateString2);
     }
 
-    /**
-     * InOutTimeの最新レコードを取得するためのParseQueryを取得
-     * @return InOutTimeの最新レコードを取得するためのParseQuery
-     */
-    private ParseQuery<InOutTime> getNewestInOutTimeParseQuery() {
-        ParseQuery<InOutTime> query = ParseQuery.getQuery(InOutTime.class);
-        query.whereEqualTo(InOutTime.KEY_MEMBER, ParseObject.createWithoutData(Member.class, getArguments().getString(CURRENT_MEMBER_ID)));
-        query.addDescendingOrder(InOutTime.KEY_DATE);
-        return query;
-    }
 
 }
