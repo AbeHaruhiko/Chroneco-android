@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.parse.GetCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -109,35 +106,43 @@ public class MemberDetailFragment extends Fragment {
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
         ParseQuery<InOutTime> query = getNewestInOutTimeParseQuery();
-        query.getFirstInBackground(new GetCallback<InOutTime>() {
+
+        getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
-            public void done(InOutTime newestRecord, ParseException e) {
-
-                final SaveCallback inButtonSaveCallback = new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-//                        onClickSaveComment();
-                        inButton.setEnabled(true);
-                    }
-                };
-
+            public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
+                final InOutTime newestRecord = (InOutTime) task.getResult();
+                InOutTime inTime = newestRecord;
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
-                    updateInTime(newestRecord, inButtonSaveCallback);
+                    updateInTime(newestRecord);
                 } else {
                     // 今日のレコードがない
-                    createInTime(inButtonSaveCallback);
+                    inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID), now);
                 }
+
+                return saveAsync(inTime);
             }
 
-            private void updateInTime(InOutTime newestRecord, SaveCallback inButtonSaveCallback) {
-                newestRecord.setIn(now);
-                newestRecord.saveInBackground(inButtonSaveCallback);
+            private void updateInTime(InOutTime newestRecord) {
+                newestRecord.setOut(now);
             }
 
-            private void createInTime(SaveCallback inButtonSaveCallback) {
-                InOutTime inTime = new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, now, null);
-                inTime.saveInBackground(inButtonSaveCallback);
+        }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
+            @Override
+            public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
+
+                inButton.setEnabled(true);
+
+                InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
+
+                new SlackClient().sendMessage(mMember.getSlackPath(),
+                        new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
+                                outTime.getDate(),
+                                outTime.getOut(),
+                                getString(R.string.in)),
+                                getString(R.string.app_name), ":gohst:"));
+
+                return null;
             }
         });
     }
@@ -155,16 +160,16 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
-                InOutTime inTime = newestRecord;
+                InOutTime outTime = newestRecord;
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
                     updateOutTime(newestRecord);
                 } else {
                     // 今日のレコードがない
-                    inTime = createOutTime();
+                    outTime = createOutTime();
                 }
 
-                return saveAsync(inTime);
+                return saveAsync(outTime);
             }
 
             private void updateOutTime(InOutTime newestRecord) {
@@ -172,7 +177,7 @@ public class MemberDetailFragment extends Fragment {
             }
 
             private InOutTime createOutTime() {
-                return new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, now);
+                return InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID), now);
             }
 
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
@@ -181,9 +186,13 @@ public class MemberDetailFragment extends Fragment {
 
                 outButton.setEnabled(true);
 
-                // TODO: fetch???
+                InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
+
                 new SlackClient().sendMessage(mMember.getSlackPath(),
-                        new SlackClient.SlackMessage(getString(R.string.slack_msg_guest_has_come),
+                        new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
+                                outTime.getDate(),
+                                outTime.getOut(),
+                                getString(R.string.out)),
                                 getString(R.string.app_name), ":gohst:"));
 
                 return null;

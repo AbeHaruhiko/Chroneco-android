@@ -1,5 +1,7 @@
 package jp.caliconography.chroneco.model.parseobject;
 
+import android.support.annotation.NonNull;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
@@ -21,33 +23,47 @@ public class InOutTime extends ParseObject {
 
     }
 
-    public InOutTime(String memberObjectId, Date date, Date in, Date out) {
+    public InOutTime(@NonNull String memberObjectId, Date date, Date in, Date out) {
         setMember(memberObjectId);
         setDate(date);
         setIn(in);
         setOut(out);
     }
 
-    public void setMember(String memberObjectId) {
+    public static InOutTime createInTime(@NonNull String memberObjectId, @NonNull Date inTime) {
+        return new InOutTime(memberObjectId, inTime, inTime, null);
+    }
+
+    public static InOutTime createOutTime(@NonNull String memberObjectId, @NonNull Date outTime) {
+        return new InOutTime(memberObjectId, outTime, null, outTime);
+    }
+
+    public void setMember(@NonNull String memberObjectId) {
         Member member = (Member) ParseObject.createWithoutData("Member", memberObjectId);
         put(KEY_MEMBER, member);
     }
 
-    public void setDate(Date date) {
-        if (date != null) {
-            put(KEY_DATE, date);
-        }
+    public Date getDate() {
+        return getDate(KEY_DATE);
     }
 
-    public void setIn(Date date) {
-        if (date != null) {
-            put(KEY_IN, date);
-        }
+    public void setDate(@NonNull Date date) {
+        put(KEY_DATE, date);
     }
 
-    public void setOut(Date date) {
-        if (date != null) {
-            put(KEY_OUT, date);
-        }
+    public Date getIn() {
+        return getDate(KEY_IN);
+    }
+
+    public void setIn(@NonNull Date date) {
+        put(KEY_IN, date);
+    }
+
+    public Date getOut() {
+        return getDate(KEY_OUT);
+    }
+
+    public void setOut(@NonNull Date date) {
+        put(KEY_OUT, date);
     }
 }

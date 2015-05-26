@@ -9,5 +9,8 @@
     <string name="title_member_detail">Member Detail</string>
     <string name="settings">settings</string>
     <string name="slack_msg_guest_has_come">来客です。</string>
+    <string name="slack_msg_in_out_time">%1$tm/%1$tdの%3$s時刻は%2$tRです。</string>
+    <string name="in">出勤</string>
+    <string name="out">退勤</string>
 
 </resources>
