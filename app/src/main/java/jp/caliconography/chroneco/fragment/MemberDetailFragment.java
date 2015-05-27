@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -88,9 +89,14 @@ public class MemberDetailFragment extends Fragment {
         ButterKnife.inject(this, rootView);
 
         // アイコンロード
-        mIcon.setPlaceholder(getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
-        mIcon.setParseFile(mMember.getPhotoFile());
-        mIcon.loadInBackground();
+//        mIcon.setPlaceholder(getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
+        ParseFile photoFile = mMember.getPhotoFile();
+        if (photoFile == null) {
+            mIcon.setImageResource(R.drawable.com_facebook_profile_picture_blank_square);
+        } else {
+            mIcon.setParseFile(mMember.getPhotoFile());
+            mIcon.loadInBackground();
+        }
 
         // 名前セット
         mMemberName.setText(mMember.getName());
