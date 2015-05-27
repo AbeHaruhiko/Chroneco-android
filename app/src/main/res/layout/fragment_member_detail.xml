@@ -61,6 +61,16 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:text="※出勤・退勤ボタンを押したらそのまま放置してください。15秒でスリープ状態になります。\n端末右下の方にある電源ボタンでもスリープ状態にできます。\n（戻るボタンなどは押さない）\n\nアプリが起動していない場合は、ホーム画面の「Chroneco」というアイコンをタップして起動してください。"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <!--<EditText-->
         <!--android:id="@+id/comment"-->
         <!--android:layout_width="match_parent"-->
