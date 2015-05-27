@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -27,6 +28,7 @@ import jp.caliconography.chroneco.activity.dummy.DummyContent;
 import jp.caliconography.chroneco.model.parseobject.InOutTime;
 import jp.caliconography.chroneco.model.parseobject.Member;
 import jp.caliconography.chroneco.service.SlackClient;
+import jp.caliconography.chroneco.util.ToastHelper;
 import jp.caliconography.chroneco.util.parse.ParseObjectAsyncProcResult;
 import jp.caliconography.chroneco.widget.CircleParseImageView;
 
@@ -131,21 +133,27 @@ public class MemberDetailFragment extends Fragment {
             }
 
             private void updateInTime(InOutTime newestRecord) {
-                newestRecord.setOut(now);
+                newestRecord.setIn(now);
             }
 
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
 
+
+                InOutTime inTime = (InOutTime) task.getResult().getProcTarget();
+
+                ToastHelper.makeText(getActivity(), "保存しました。" + getString(R.string.slack_msg_in_out_time,
+                                inTime.getDate(),
+                                inTime.getIn(),
+                                getString(R.string.in)),
+                        Toast.LENGTH_LONG).show();
+
                 inButton.setEnabled(true);
-
-                InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
-
                 new SlackClient().sendMessage(mMember.getSlackPath(),
                         new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
-                                outTime.getDate(),
-                                outTime.getOut(),
+                                inTime.getDate(),
+                                inTime.getIn(),
                                 getString(R.string.in)),
                                 getString(R.string.app_name), ":gohst:"));
 
@@ -191,9 +199,15 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
 
-                outButton.setEnabled(true);
-
                 InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
+
+                ToastHelper.makeText(getActivity(), "保存しました。" + getString(R.string.slack_msg_in_out_time,
+                                outTime.getDate(),
+                                outTime.getOut(),
+                                getString(R.string.out)),
+                        Toast.LENGTH_LONG).show();
+
+                outButton.setEnabled(true);
 
                 new SlackClient().sendMessage(mMember.getSlackPath(),
                         new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
