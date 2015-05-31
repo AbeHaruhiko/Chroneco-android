@@ -23,7 +23,8 @@ public class App extends Application {
 //        ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access while disabling public write access.
-        // defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicReadAccess(true);
+        defaultACL.setRoleWriteAccess("admin", true);
         ParseACL.setDefaultACL(defaultACL, true);
 
         ParseObject.registerSubclass(Member.class);
