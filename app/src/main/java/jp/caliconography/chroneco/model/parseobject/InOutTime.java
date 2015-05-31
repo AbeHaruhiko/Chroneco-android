@@ -44,7 +44,15 @@ public class InOutTime extends ParseObject {
         return new InOutTime(memberObjectId, inTime, inTime, null);
     }
 
+    public static InOutTime createInTime(@NonNull String memberObjectId, @NonNull Date date, @NonNull Date inTime) {
+        return new InOutTime(memberObjectId, date, inTime, null);
+    }
+
     public static InOutTime createOutTime(@NonNull String memberObjectId, @NonNull Date outTime) {
+        return new InOutTime(memberObjectId, outTime, null, outTime);
+    }
+
+    public static InOutTime createOutTime(@NonNull String memberObjectId, @NonNull Date date, @NonNull Date outTime) {
         return new InOutTime(memberObjectId, outTime, null, outTime);
     }
 

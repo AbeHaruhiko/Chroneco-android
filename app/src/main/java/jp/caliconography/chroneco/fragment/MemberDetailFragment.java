@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
@@ -14,7 +16,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -55,6 +59,12 @@ public class MemberDetailFragment extends Fragment {
 
     @InjectView(R.id.member_name)
     TextView mMemberName;
+
+    @InjectView(R.id.chokko_chikki)
+    Switch mChokkoChokki;
+
+    @InjectView(R.id.real_time)
+    TimePicker mTimePicker;
 
     /**
      * The dummy content this fragment is presenting.
@@ -109,7 +119,9 @@ public class MemberDetailFragment extends Fragment {
     @OnClick(R.id.in)
     public void onClickInButton(final Button inButton) {
 
+        // 現在時刻（今日日付を使ったり、いま時刻を使ったり）
         final Date now = new Date();
+
 
         inButton.setEnabled(false);
 
@@ -121,19 +133,33 @@ public class MemberDetailFragment extends Fragment {
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
                 InOutTime inTime = newestRecord;
+
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
-                    updateInTime(newestRecord);
+
+                    if (mChokkoChokki.isChecked()) {
+                        updateInTime(newestRecord, getChokkoChokkiDate());
+                    } else {
+                        updateInTime(newestRecord, now);
+                    }
                 } else {
                     // 今日のレコードがない
-                    inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID), now);
+
+                    if (mChokkoChokki.isChecked()) {
+                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                now,
+                                getChokkoChokkiDate());
+                    } else {
+                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                now);
+                    }
                 }
 
                 return saveAsync(inTime);
             }
 
-            private void updateInTime(InOutTime newestRecord) {
-                newestRecord.setIn(now);
+            private void updateInTime(InOutTime newestRecord, Date inTime) {
+                newestRecord.setIn(inTime);
             }
 
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
@@ -164,6 +190,8 @@ public class MemberDetailFragment extends Fragment {
 
     @OnClick(R.id.out)
     public void onClickOutButton(final Button outButton) {
+
+        // 現在時刻（今日日付を使ったり、いま時刻を使ったり）
         final Date now = new Date();
 
         outButton.setEnabled(false);
@@ -178,23 +206,33 @@ public class MemberDetailFragment extends Fragment {
                 InOutTime outTime = newestRecord;
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
-                    updateOutTime(newestRecord);
+
+                    if (mChokkoChokki.isChecked()) {
+                        updateOutTime(newestRecord, getChokkoChokkiDate());
+                    } else {
+                        updateOutTime(newestRecord, now);
+                    }
+
                 } else {
                     // 今日のレコードがない
-                    outTime = createOutTime();
+
+                    if (mChokkoChokki.isChecked()) {
+                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                now,
+                                getChokkoChokkiDate());
+
+                    } else {
+                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                now);
+                    }
                 }
 
                 return saveAsync(outTime);
             }
 
-            private void updateOutTime(InOutTime newestRecord) {
-                newestRecord.setOut(now);
+            private void updateOutTime(InOutTime newestRecord, Date outTime) {
+                newestRecord.setOut(outTime);
             }
-
-            private InOutTime createOutTime() {
-                return InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID), now);
-            }
-
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
@@ -220,6 +258,22 @@ public class MemberDetailFragment extends Fragment {
             }
         });
 
+    }
+
+    private Date getChokkoChokkiDate() {
+        // 直行・直帰時刻
+        // TODO: 午前様対応
+        Date chokkoChokkiTime = null;
+        if (mChokkoChokki.isChecked()) {
+            Calendar cal = new GregorianCalendar();
+            cal.set(cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DATE),
+                    mTimePicker.getCurrentHour(),
+                    mTimePicker.getCurrentMinute());
+            chokkoChokkiTime = cal.getTime();
+        }
+        return chokkoChokkiTime;
     }
 
 //    @OnClick(R.id.save_comment)
