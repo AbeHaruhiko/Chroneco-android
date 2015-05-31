@@ -65,11 +65,44 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/chokko_chikki"
         android:layout_marginLeft="50dp"
-        android:text="※出勤・退勤ボタンを押したらそのまま放置してください。15秒でスリープ状態になります。\n端末右下の方にある電源ボタンでもスリープ状態にできます。\n（戻るボタンなどは押さない）\n\nアプリが起動していない場合は、ホーム画面の「Chroneco」というアイコンをタップして起動してください。"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/member_name"
+        android:layout_toStartOf="@+id/member_name"
+        android:text="※出勤・退勤ボタンを押したらそのまま放置してください。15秒でスリープ状態になります。\n（戻るボタンなどは押さない）"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Switch
+        android:id="@+id/chokko_chikki"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timePicker"
+        android:layout_alignStart="@+id/timePicker"
+        android:layout_below="@+id/linearLayout"
+        android:switchPadding="16dp"
+        android:text="直行・直帰"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/real_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timePicker"
+        android:layout_alignStart="@+id/timePicker"
+        android:layout_below="@+id/chokko_chikki"
+        android:layout_marginTop="20dp"
+        android:text="直行・直帰先での業務開始/終了時刻" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/real_time"
+        android:paddingRight="20dp"
+        android:timePickerMode="spinner" />
 
     <!--<EditText-->
         <!--android:id="@+id/comment"-->
