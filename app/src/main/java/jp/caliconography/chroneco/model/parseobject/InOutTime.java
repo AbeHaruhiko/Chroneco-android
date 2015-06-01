@@ -19,8 +19,10 @@ public class InOutTime extends ParseObject {
     public static final String KEY_DATE = "date";
     public static final String KEY_IN = "in";
     public static final String KEY_OUT = "out";
-    public static final String KEY_CHOKKO_CHOKKI = "chokkoChokki";
-    public static final String KEY_REAL_IN_OUT_TIME = "realInOutTime";
+    public static final String KEY_CHOKKO = "chokko";
+    public static final String KEY_CHOKKO_DAKOKU_TIME = "chokkoDakokuTime";
+    public static final String KEY_CHOKKI = "chokki";
+    public static final String KEY_CHOKKI_DAKOKU_TIME = "chokkiDakokuTime";
 
 
     public InOutTime() {
@@ -100,11 +102,19 @@ public class InOutTime extends ParseObject {
         put(KEY_OUT, date);
     }
 
-    public void setChokkoChokki(boolean chokkoChokki) {
-        put(KEY_CHOKKO_CHOKKI, true);
+    public void setChokko(boolean chokko) {
+        put(KEY_CHOKKO, true);
     }
 
-    public void setRealInOutTime(@NonNull Date realInOutTime) {
-        put(KEY_REAL_IN_OUT_TIME, realInOutTime);
+    public void setChokkoDakokuTime(@NonNull Date dakokuTime) {
+        put(KEY_CHOKKO_DAKOKU_TIME, dakokuTime);
+    }
+
+    public void setChokki(boolean chokki) {
+        put(KEY_CHOKKI, true);
+    }
+
+    public void setChokkiDakokuTime(@NonNull Date dakokuTime) {
+        put(KEY_CHOKKI_DAKOKU_TIME, dakokuTime);
     }
 }

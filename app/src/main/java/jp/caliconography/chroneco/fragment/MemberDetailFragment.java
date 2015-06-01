@@ -134,11 +134,15 @@ public class MemberDetailFragment extends Fragment {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
                 InOutTime inTime = newestRecord;
 
+                // 直行か
+                inTime.setChokko(mChokkoChokki.isChecked());
+
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
                         inTime.setIn(getChokkoChokkiDate());
+                        inTime.setChokkoDakokuTime(now);
                     } else {
                         inTime.setIn(now);
                     }
@@ -154,8 +158,6 @@ public class MemberDetailFragment extends Fragment {
                                 now);
                     }
                 }
-
-                inTime.setChokkoChokki(mChokkoChokki.isChecked());
 
                 return saveAsync(inTime);
             }
@@ -202,13 +204,18 @@ public class MemberDetailFragment extends Fragment {
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
                 InOutTime outTime = newestRecord;
+
+                // 直行・直帰か
+                outTime.setChokki(mChokkoChokki.isChecked());
+
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        newestRecord.setOut(getChokkoChokkiDate());
+                        outTime.setOut(getChokkoChokkiDate());
+                        outTime.setChokkiDakokuTime(now);
                     } else {
-                        newestRecord.setOut(now);
+                        outTime.setOut(now);
                     }
 
                 } else {
@@ -255,6 +262,11 @@ public class MemberDetailFragment extends Fragment {
 
     }
 
+    /**
+     * 直行の時の実際の出勤時刻、直帰の時の予定退勤時刻
+     *
+     * @return
+     */
     private Date getChokkoChokkiDate() {
         // 直行・直帰時刻
         // TODO: 午前様対応
