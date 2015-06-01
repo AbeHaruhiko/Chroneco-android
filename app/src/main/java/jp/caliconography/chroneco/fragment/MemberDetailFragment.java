@@ -138,9 +138,9 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        updateInTime(newestRecord, getChokkoChokkiDate());
+                        inTime.setIn(getChokkoChokkiDate());
                     } else {
-                        updateInTime(newestRecord, now);
+                        inTime.setIn(now);
                     }
                 } else {
                     // 今日のレコードがない
@@ -155,11 +155,9 @@ public class MemberDetailFragment extends Fragment {
                     }
                 }
 
-                return saveAsync(inTime);
-            }
+                inTime.setChokkoChokki(mChokkoChokki.isChecked());
 
-            private void updateInTime(InOutTime newestRecord, Date inTime) {
-                newestRecord.setIn(inTime);
+                return saveAsync(inTime);
             }
 
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
@@ -208,9 +206,9 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        updateOutTime(newestRecord, getChokkoChokkiDate());
+                        newestRecord.setOut(getChokkoChokkiDate());
                     } else {
-                        updateOutTime(newestRecord, now);
+                        newestRecord.setOut(now);
                     }
 
                 } else {
@@ -230,9 +228,6 @@ public class MemberDetailFragment extends Fragment {
                 return saveAsync(outTime);
             }
 
-            private void updateOutTime(InOutTime newestRecord, Date outTime) {
-                newestRecord.setOut(outTime);
-            }
         }).onSuccess(new Continuation<ParseObjectAsyncProcResult, Void>() {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
