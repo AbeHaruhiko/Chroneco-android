@@ -2,17 +2,16 @@ package jp.caliconography.chroneco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import jp.caliconography.chroneco.R;
 import jp.caliconography.chroneco.fragment.MemberDetailFragment;
-import jp.caliconography.chroneco.fragment.MemberListAdminFragment;
 import jp.caliconography.chroneco.fragment.MemberListFragment;
 import jp.caliconography.chroneco.model.parseobject.Member;
 
-public class MemberListActivity extends FragmentActivity
+public class MemberListActivity extends ActionBarActivity
         implements MemberListFragment.Callbacks {
 
     /**
@@ -25,6 +24,8 @@ public class MemberListActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_list);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         if (findViewById(R.id.member_detail_container) != null) {
             // The detail container view will be present only in the
@@ -88,4 +89,5 @@ public class MemberListActivity extends FragmentActivity
             startActivity(detailIntent);
         }
     }
+
 }

@@ -3,9 +3,13 @@ package jp.caliconography.chroneco.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import jp.caliconography.chroneco.R;
 import jp.caliconography.chroneco.adapter.MemberAdapter;
 import jp.caliconography.chroneco.model.parseobject.Member;
 
@@ -43,6 +47,8 @@ public class MemberListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
+    private MemberAdapter mMeberAdapter;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -54,7 +60,10 @@ public class MemberListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new MemberAdapter(this.getActivity()));
+        this.setHasOptionsMenu(true);
+
+        mMeberAdapter = new MemberAdapter(this.getActivity());
+        setListAdapter(mMeberAdapter);
 //        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
 //                getActivity(),
 //                android.R.layout.simple_list_item_activated_1,
@@ -135,6 +144,24 @@ public class MemberListFragment extends ListFragment {
         mActivatedPosition = position;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.member_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.refresh) {
+            MemberAdapter adapter = (MemberAdapter) this.getListAdapter();
+            adapter.clear();
+            adapter.loadObjects();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -146,4 +173,5 @@ public class MemberListFragment extends ListFragment {
          */
         void onItemSelected(Member selectdMember);
     }
+
 }
