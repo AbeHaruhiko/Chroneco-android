@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name="jp.caliconography.chroneco.activity.MemberListActivity"
-            android:label="@string/title_member_list"
+            android:label="@string/app_name"
             android:parentActivityName="jp.caliconography.chroneco.activity.WelcomeActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

@@ -3,6 +3,7 @@ package jp.caliconography.chroneco.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
@@ -26,6 +27,7 @@ public class MemberListActivity extends ActionBarActivity
         setContentView(R.layout.activity_member_list);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME, ActionBar.DISPLAY_SHOW_HOME);
 
         if (findViewById(R.id.member_detail_container) != null) {
             // The detail container view will be present only in the
