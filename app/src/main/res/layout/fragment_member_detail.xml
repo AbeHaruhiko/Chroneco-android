@@ -77,9 +77,9 @@
         android:id="@+id/chokko_chikki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/real_time"
-        android:layout_alignStart="@+id/real_time"
         android:layout_below="@+id/linearLayout"
+        android:layout_toEndOf="@+id/member_name"
+        android:layout_toRightOf="@+id/member_name"
         android:switchPadding="16dp"
         android:text="直行・直帰"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -91,16 +91,29 @@
         android:layout_alignLeft="@+id/real_time"
         android:layout_alignStart="@+id/real_time"
         android:layout_below="@+id/chokko_chikki"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:text="直行・直帰先での業務開始/終了時刻" />
+
+    <Switch
+        android:id="@+id/real_time_is_unknown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/real_time"
+        android:layout_alignStart="@+id/real_time"
+        android:layout_below="@+id/lbl_real_time"
+        android:layout_marginBottom="20dp"
+        android:switchPadding="16dp"
+        android:text="時刻未定"
+        android:visibility="gone" />
 
     <TimePicker
         android:id="@+id/real_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/lbl_real_time"
+        android:layout_below="@+id/real_time_is_unknown"
+        android:layout_toEndOf="@+id/member_name"
+        android:layout_toRightOf="@+id/member_name"
         android:paddingRight="20dp"
         android:timePickerMode="spinner" />
 

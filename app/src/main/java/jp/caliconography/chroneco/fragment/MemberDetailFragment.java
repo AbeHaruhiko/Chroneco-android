@@ -66,6 +66,9 @@ public class MemberDetailFragment extends Fragment {
     @InjectView(R.id.real_time)
     TimePicker mTimePicker;
 
+    @InjectView(R.id.real_time_is_unknown)
+    Switch mRealTimeIsUnknown;
+
     /**
      * The dummy content this fragment is presenting.
      */
@@ -141,7 +144,11 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        inTime.setIn(getChokkoChokkiDate());
+                        if (mRealTimeIsUnknown.isChecked()) {
+
+                        } else {
+                            inTime.setIn(getChokkoChokkiDate());
+                        }
                         inTime.setChokkoDakokuTime(now);
                     } else {
                         inTime.setIn(now);
@@ -150,9 +157,14 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがない
 
                     if (mChokkoChokki.isChecked()) {
-                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                now,
-                                getChokkoChokkiDate());
+                        if (mRealTimeIsUnknown.isChecked()) {
+
+                        } else {
+                            inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                    now,
+                                    getChokkoChokkiDate());
+                        }
+                        inTime.setChokkoDakokuTime(now);
                     } else {
                         inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
                                 now);
@@ -212,7 +224,11 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        outTime.setOut(getChokkoChokkiDate());
+                        if (mRealTimeIsUnknown.isChecked()) {
+
+                        } else {
+                            outTime.setOut(getChokkoChokkiDate());
+                        }
                         outTime.setChokkiDakokuTime(now);
                     } else {
                         outTime.setOut(now);
@@ -222,9 +238,13 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがない
 
                     if (mChokkoChokki.isChecked()) {
-                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                now,
-                                getChokkoChokkiDate());
+                        if (mRealTimeIsUnknown.isChecked()) {
+
+                        } else {
+                            outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                    now,
+                                    getChokkoChokkiDate());
+                        }
 
                     } else {
                         outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
