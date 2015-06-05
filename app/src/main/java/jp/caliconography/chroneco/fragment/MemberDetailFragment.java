@@ -183,42 +183,21 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
-                InOutTime inTime = newestRecord;
+
+                InOutTime inTime = existsSameDateRecord(newestRecord, now) ?
+                        newestRecord
+                        : new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, null);    /* 対象日が今日のデータ作成 */
+
+                inTime.setIn(now);
 
                 // 直行か
                 inTime.setChokko(mChokkoChokki.isChecked());
 
                 if (mChokkoChokki.isChecked()) {
+                    // 直行なら打刻時刻をセット
                     inTime.setChokkoDakokuTime(now);
-                }
-
-                if (existsSameDateRecord(newestRecord, now)) {
-                    // 今日のレコードがある
-
-                    if (mChokkoChokki.isChecked()) {
-//                        if (mRealTimeIsUnknown.isChecked()) {
-//
-//                        } else {
-                        inTime.setIn(getChokkoChokkiDate());
-//                        }
-                    } else {
-                        inTime.setIn(now);
-                    }
-                } else {
-                    // 今日のレコードがない
-
-                    if (mChokkoChokki.isChecked()) {
-//                        if (mRealTimeIsUnknown.isChecked()) {
-//
-//                        } else {
-                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                    /* 対象日付 */ now,
-                                    /* 出勤時刻 */ getChokkoChokkiDate());
-//                        }
-                    } else {
-                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                /* 対象日付 & 出勤時刻 */ now);
-                    }
+                    // 直行の時は、TimePickerの指定時刻を出勤時刻とする。（nowを上書き）
+                    inTime.setIn(getChokkoChokkiDate());
                 }
 
                 return saveAsync(inTime);
@@ -237,7 +216,6 @@ public class MemberDetailFragment extends Fragment {
                                 getString(R.string.in)),
                         Toast.LENGTH_LONG).show();
 
-                inButton.setEnabled(true);
                 new SlackClient().sendMessage(mMember.getSlackPath(),
                         new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
                                 inTime.getDate(),
@@ -271,43 +249,20 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
-                InOutTime outTime = newestRecord;
+                InOutTime outTime = existsSameDateRecord(newestRecord, now) ?
+                        newestRecord
+                        : new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, null);    /* 対象日が今日のデータ作成 */
+
+                outTime.setOut(now);
 
                 // 直行・直帰か
                 outTime.setChokki(mChokkoChokki.isChecked());
 
                 if (mChokkoChokki.isChecked()) {
+                    // 直行なら打刻時刻をセット
                     outTime.setChokkiDakokuTime(now);
-                }
-
-                if (existsSameDateRecord(newestRecord, now)) {
-                    // 今日のレコードがある
-
-                    if (mChokkoChokki.isChecked()) {
-//                        if (mRealTimeIsUnknown.isChecked()) {
-//
-//                        } else {
-                        outTime.setOut(getChokkoChokkiDate());
-//                        }
-                    } else {
-                        outTime.setOut(now);
-                    }
-
-                } else {
-                    // 今日のレコードがない
-
-                    if (mChokkoChokki.isChecked()) {
-//                        if (mRealTimeIsUnknown.isChecked()) {
-//
-//                        } else {
-                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                    /* 対象日付 */ now,
-                                    /* 退勤時刻 */ getChokkoChokkiDate());
-//                        }
-                    } else {
-                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                now);
-                    }
+                    // 直帰の時は、TimePickerの指定時刻を退勤時刻とする。（nowを上書き）
+                    outTime.setOut(getChokkoChokkiDate());
                 }
 
                 return saveAsync(outTime);
@@ -324,8 +279,6 @@ public class MemberDetailFragment extends Fragment {
                                 outTime.getOut(),
                                 getString(R.string.out)),
                         Toast.LENGTH_LONG).show();
-
-                outButton.setEnabled(true);
 
                 new SlackClient().sendMessage(mMember.getSlackPath(),
                         new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
