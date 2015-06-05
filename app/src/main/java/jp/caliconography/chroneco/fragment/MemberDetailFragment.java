@@ -61,6 +61,12 @@ public class MemberDetailFragment extends Fragment {
     @InjectView(R.id.member_name)
     TextView mMemberName;
 
+    @InjectView(R.id.in)
+    Button mIn;
+
+    @InjectView(R.id.out)
+    Button mOut;
+
     @InjectView(R.id.chokko_chikki)
     Switch mChokkoChokki;
 
@@ -104,6 +110,38 @@ public class MemberDetailFragment extends Fragment {
 
         ButterKnife.inject(this, rootView);
 
+        // ボタンの制御（その日クリック済みなら押せないように）
+        ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
+
+        getFirstAsync(query).continueWith(new Continuation<ParseObject, Void>() {
+            @Override
+            public Void then(Task<ParseObject> task) throws Exception {
+                final InOutTime newestRecord = (InOutTime) task.getResult();
+
+                // 現在時刻
+                final Date now = new Date();
+
+                if (existsSameDateRecord(newestRecord, now)) {
+                    // 今日のレコードがある
+
+                    if (newestRecord.getIn() == null) {
+                        // 出勤済み
+                        mIn.setEnabled(true);
+                    }
+
+                    if (newestRecord.getOut() == null) {
+                        // 退勤済み
+                        mOut.setEnabled(true);
+                    }
+                } else {
+                    mIn.setEnabled(true);
+                    mOut.setEnabled(true);
+                }
+                return null;
+            }
+        });
+
+
         // アイコンロード
 //        mIcon.setPlaceholder(getResources().getDrawable(R.drawable.com_facebook_profile_picture_blank_square));
         ParseFile photoFile = mMember.getPhotoFile();
@@ -116,6 +154,9 @@ public class MemberDetailFragment extends Fragment {
 
         // 名前セット
         mMemberName.setText(mMember.getName());
+
+        // 24時間表示
+        mTimePicker.setIs24HourView(true);
 
         return rootView;
     }
