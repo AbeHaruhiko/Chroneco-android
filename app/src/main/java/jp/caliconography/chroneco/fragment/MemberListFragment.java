@@ -8,10 +8,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import jp.caliconography.chroneco.R;
 import jp.caliconography.chroneco.adapter.MemberAdapter;
 import jp.caliconography.chroneco.model.parseobject.Member;
+import jp.caliconography.chroneco.util.ToastHelper;
+import jp.caliconography.chroneco.util.Utils;
 
 /**
  * A list fragment representing a list of Members. This fragment
@@ -106,6 +109,12 @@ public class MemberListFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
+        // ネットワークに接続できないとき
+        if (Utils.isOffline(getActivity())) {
+            ToastHelper.makeText(getActivity(), getString(R.string.network_disconncted), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Member clickedMember = (Member) listView.getAdapter().getItem(position);
 
         // Notify the active callbacks interface (the activity, if the
@@ -153,6 +162,13 @@ public class MemberListFragment extends ListFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        // ネットワークに接続できないとき
+        if (Utils.isOffline(getActivity())) {
+            ToastHelper.makeText(getActivity(), getString(R.string.network_disconncted), Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         int id = item.getItemId();
         if (id == R.id.refresh) {
             MemberAdapter adapter = (MemberAdapter) this.getListAdapter();
@@ -160,6 +176,15 @@ public class MemberListFragment extends ListFragment {
             adapter.loadObjects();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // ネットワークに接続できないとき
+        if (Utils.isOffline(getActivity())) {
+            ToastHelper.makeText(getActivity(), getString(R.string.network_disconncted), Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -173,5 +198,4 @@ public class MemberListFragment extends ListFragment {
          */
         void onItemSelected(Member selectdMember);
     }
-
 }
