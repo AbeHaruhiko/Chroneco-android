@@ -35,6 +35,21 @@ public class ParseObjectAsyncUtil {
         return task.getTask();
     }
 
+    public static Task<ParseObjectAsyncProcResult> saveEventuallyAsync(final ParseObject obj) {
+        final Task<ParseObjectAsyncProcResult>.TaskCompletionSource task = Task.<ParseObjectAsyncProcResult>create();
+        obj.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    task.setResult(new ParseObjectAsyncProcResult(ProcType.PROC_TYPE_SAVE, obj));
+                } else {
+                    task.setError(e);
+                }
+            }
+        });
+        return task.getTask();
+    }
+
     public static Task<ParseObjectAsyncProcResult> saveAsync(final ParseObject obj) {
         final Task<ParseObjectAsyncProcResult>.TaskCompletionSource task = Task.<ParseObjectAsyncProcResult>create();
         obj.saveInBackground(new SaveCallback() {

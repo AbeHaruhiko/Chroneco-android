@@ -33,6 +33,7 @@ import jp.caliconography.chroneco.model.parseobject.InOutTime;
 import jp.caliconography.chroneco.model.parseobject.Member;
 import jp.caliconography.chroneco.service.SlackClient;
 import jp.caliconography.chroneco.util.ToastHelper;
+import jp.caliconography.chroneco.util.Utils;
 import jp.caliconography.chroneco.util.parse.ParseObjectAsyncProcResult;
 import jp.caliconography.chroneco.widget.CircleParseImageView;
 
@@ -122,6 +123,12 @@ public class MemberDetailFragment extends Fragment {
     @OnClick(R.id.in)
     public void onClickInButton(final Button inButton) {
 
+        // ネットワークに接続できないとき
+        if (Utils.isOffline(getActivity())) {
+            ToastHelper.makeText(getActivity(), getString(R.string.network_disconncted), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         // 現在時刻（今日日付を使ったり、いま時刻を使ったり）
         final Date now = new Date();
 
@@ -140,16 +147,19 @@ public class MemberDetailFragment extends Fragment {
                 // 直行か
                 inTime.setChokko(mChokkoChokki.isChecked());
 
+                if (mChokkoChokki.isChecked()) {
+                    inTime.setChokkoDakokuTime(now);
+                }
+
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        if (mRealTimeIsUnknown.isChecked()) {
-
-                        } else {
-                            inTime.setIn(getChokkoChokkiDate());
-                        }
-                        inTime.setChokkoDakokuTime(now);
+//                        if (mRealTimeIsUnknown.isChecked()) {
+//
+//                        } else {
+                        inTime.setIn(getChokkoChokkiDate());
+//                        }
                     } else {
                         inTime.setIn(now);
                     }
@@ -157,17 +167,16 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがない
 
                     if (mChokkoChokki.isChecked()) {
-                        if (mRealTimeIsUnknown.isChecked()) {
-
-                        } else {
-                            inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                    now,
-                                    getChokkoChokkiDate());
-                        }
-                        inTime.setChokkoDakokuTime(now);
+//                        if (mRealTimeIsUnknown.isChecked()) {
+//
+//                        } else {
+                        inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                    /* 対象日付 */ now,
+                                    /* 出勤時刻 */ getChokkoChokkiDate());
+//                        }
                     } else {
                         inTime = InOutTime.createInTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                now);
+                                /* 対象日付 & 出勤時刻 */ now);
                     }
                 }
 
@@ -181,7 +190,7 @@ public class MemberDetailFragment extends Fragment {
 
                 InOutTime inTime = (InOutTime) task.getResult().getProcTarget();
 
-                ToastHelper.makeText(getActivity(), "保存しました。" + getString(R.string.slack_msg_in_out_time,
+                ToastHelper.makeText(getActivity(), getString(R.string.saved) + getString(R.string.slack_msg_in_out_time,
                                 inTime.getDate(),
                                 inTime.getIn(),
                                 getString(R.string.in)),
@@ -193,7 +202,7 @@ public class MemberDetailFragment extends Fragment {
                                 inTime.getDate(),
                                 inTime.getIn(),
                                 getString(R.string.in)),
-                                getString(R.string.app_name), ":gohst:"));
+                                getString(R.string.app_name), getString(R.string.slack_icon)));
 
                 return null;
             }
@@ -202,6 +211,12 @@ public class MemberDetailFragment extends Fragment {
 
     @OnClick(R.id.out)
     public void onClickOutButton(final Button outButton) {
+
+        // ネットワークに接続できないとき
+        if (Utils.isOffline(getActivity())) {
+            ToastHelper.makeText(getActivity(), getString(R.string.network_disconncted), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         // 現在時刻（今日日付を使ったり、いま時刻を使ったり）
         final Date now = new Date();
@@ -220,16 +235,19 @@ public class MemberDetailFragment extends Fragment {
                 // 直行・直帰か
                 outTime.setChokki(mChokkoChokki.isChecked());
 
+                if (mChokkoChokki.isChecked()) {
+                    outTime.setChokkiDakokuTime(now);
+                }
+
                 if (existsSameDateRecord(newestRecord, now)) {
                     // 今日のレコードがある
 
                     if (mChokkoChokki.isChecked()) {
-                        if (mRealTimeIsUnknown.isChecked()) {
-
-                        } else {
-                            outTime.setOut(getChokkoChokkiDate());
-                        }
-                        outTime.setChokkiDakokuTime(now);
+//                        if (mRealTimeIsUnknown.isChecked()) {
+//
+//                        } else {
+                        outTime.setOut(getChokkoChokkiDate());
+//                        }
                     } else {
                         outTime.setOut(now);
                     }
@@ -238,14 +256,13 @@ public class MemberDetailFragment extends Fragment {
                     // 今日のレコードがない
 
                     if (mChokkoChokki.isChecked()) {
-                        if (mRealTimeIsUnknown.isChecked()) {
-
-                        } else {
-                            outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
-                                    now,
-                                    getChokkoChokkiDate());
-                        }
-
+//                        if (mRealTimeIsUnknown.isChecked()) {
+//
+//                        } else {
+                        outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
+                                    /* 対象日付 */ now,
+                                    /* 退勤時刻 */ getChokkoChokkiDate());
+//                        }
                     } else {
                         outTime = InOutTime.createOutTime(getArguments().getString(CURRENT_MEMBER_ID),
                                 now);
@@ -261,7 +278,7 @@ public class MemberDetailFragment extends Fragment {
 
                 InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
 
-                ToastHelper.makeText(getActivity(), "保存しました。" + getString(R.string.slack_msg_in_out_time,
+                ToastHelper.makeText(getActivity(), getString(R.string.saved) + getString(R.string.slack_msg_in_out_time,
                                 outTime.getDate(),
                                 outTime.getOut(),
                                 getString(R.string.out)),
@@ -274,7 +291,7 @@ public class MemberDetailFragment extends Fragment {
                                 outTime.getDate(),
                                 outTime.getOut(),
                                 getString(R.string.out)),
-                                getString(R.string.app_name), ":gohst:"));
+                                getString(R.string.app_name), getString(R.string.slack_icon)));
 
                 return null;
             }

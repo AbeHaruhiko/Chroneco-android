@@ -14,5 +14,8 @@
     <string name="out">退勤</string>
     <string name="label_in_btn"> 出勤</string>
     <string name="label_out_btn"> 退勤</string>
+    <string name="network_disconncted">ネットワークに接続できません。Wi-Fi接続後にやり直してください。</string>
+    <string name="saved">保存しました。</string>
+    <string name="slack_icon">:gohst:</string>
 
 </resources>
