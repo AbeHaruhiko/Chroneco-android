@@ -103,7 +103,7 @@ public class InOutTime extends ParseObject {
     }
 
     public void setChokko(boolean chokko) {
-        put(KEY_CHOKKO, true);
+        put(KEY_CHOKKO, chokko);
     }
 
     public void setChokkoDakokuTime(@NonNull Date dakokuTime) {
@@ -111,7 +111,7 @@ public class InOutTime extends ParseObject {
     }
 
     public void setChokki(boolean chokki) {
-        put(KEY_CHOKKI, true);
+        put(KEY_CHOKKI, chokki);
     }
 
     public void setChokkiDakokuTime(@NonNull Date dakokuTime) {
