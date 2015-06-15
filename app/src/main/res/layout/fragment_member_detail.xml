@@ -78,7 +78,7 @@
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/member_name"
         android:layout_toStartOf="@+id/member_name"
-        android:text="※出勤・退勤ボタンを押したらそのまま放置してください。15秒でスリープ状態になります。\n（戻るボタンなどは押さない）"
+        android:text="※出勤・退勤時刻が保存されると画面下部にメッセージが出ます（ボタン押下から数秒かかります）。メッセージを確認したらそのまま放置してください。15秒でスリープ状態になります。\n（戻るボタンなどは押さない）"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Switch
