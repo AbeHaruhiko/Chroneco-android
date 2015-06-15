@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.common.collect.Range;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -177,14 +178,14 @@ public class MemberDetailFragment extends Fragment {
         inButton.setEnabled(false);
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
-        ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
+        final ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
 
         getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
 
-                InOutTime inTime = existsSameDateRecord(newestRecord, now) ?
+                final InOutTime inTime = existsSameDateRecord(newestRecord, now) ?
                         newestRecord
                         : new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, null);    /* 対象日が今日のデータ作成 */
 
@@ -243,15 +244,25 @@ public class MemberDetailFragment extends Fragment {
         outButton.setEnabled(false);
 
         // 一覧で選択された社員の最新のInOutTimeレコードを取得する。
-        ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
+        final ParseQuery<InOutTime> query = InOutTime.getNewestInOutTimeParseQuery(getArguments().getString(CURRENT_MEMBER_ID));
 
         getFirstAsync(query).continueWithTask(new Continuation<ParseObject, Task<ParseObjectAsyncProcResult>>() {
             @Override
             public Task<ParseObjectAsyncProcResult> then(Task<ParseObject> task) throws Exception {
                 final InOutTime newestRecord = (InOutTime) task.getResult();
-                InOutTime outTime = existsSameDateRecord(newestRecord, now) ?
+
+                // 午前様対応
+                // 0:00~9:00の退勤は前日の退勤として扱う。
+                final Calendar cal = Calendar.getInstance();
+                cal.setTime(now);
+                cal.add(Calendar.DATE, -1);
+                final Date yesterday = cal.getTime();
+
+                final Date targetDate = Range.closed(0, 9).contains(cal.get(Calendar.HOUR_OF_DAY)) ? yesterday : now;
+
+                final InOutTime outTime = existsSameDateRecord(newestRecord, targetDate) ?
                         newestRecord
-                        : new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), now, null, null);    /* 対象日が今日のデータ作成 */
+                        : new InOutTime(getArguments().getString(CURRENT_MEMBER_ID), targetDate, null, null);    /* 対象日が今日のデータ作成 */
 
                 outTime.setOut(now);
 
@@ -272,7 +283,7 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
 
-                InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
+                final InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
 
                 ToastHelper.makeText(getActivity(), getString(R.string.saved) + getString(R.string.slack_msg_in_out_time,
                                 outTime.getDate(),
