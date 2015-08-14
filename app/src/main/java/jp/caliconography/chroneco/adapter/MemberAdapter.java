@@ -26,6 +26,7 @@ public class MemberAdapter extends ParseQueryAdapter<Member> {
         super(context, new ParseQueryAdapter.QueryFactory<Member>() {
             public ParseQuery<Member> create() {
                 ParseQuery query = new ParseQuery(Member.class);
+                query.whereGreaterThan(Member.KEY_DISP_ORDER, 0);
                 query.addAscendingOrder(Member.KEY_DISP_ORDER);
                 return query;
             }
