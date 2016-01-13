@@ -32,6 +32,7 @@ import jp.caliconography.chroneco.activity.MemberListAdminActivity;
 import jp.caliconography.chroneco.activity.dummy.DummyContent;
 import jp.caliconography.chroneco.model.parseobject.InOutTime;
 import jp.caliconography.chroneco.model.parseobject.Member;
+import jp.caliconography.chroneco.service.MailSender;
 import jp.caliconography.chroneco.service.SlackClient;
 import jp.caliconography.chroneco.util.ToastHelper;
 import jp.caliconography.chroneco.util.Utils;
@@ -208,20 +209,23 @@ public class MemberDetailFragment extends Fragment {
             @Override
             public Void then(Task<ParseObjectAsyncProcResult> task) throws Exception {
 
-
                 InOutTime inTime = (InOutTime) task.getResult().getProcTarget();
 
-                ToastHelper.makeText(getActivity(), getString(R.string.saved) + getString(R.string.slack_msg_in_out_time,
-                                inTime.getDate(),
-                                inTime.getIn(),
-                                getString(R.string.in)),
-                        Toast.LENGTH_LONG).show();
+                final String notificationMassage = getString(R.string.slack_msg_in_out_time,
+                        inTime.getDate(),
+                        inTime.getIn(),
+                        getString(R.string.in));
+
+                ToastHelper.makeText(getActivity(), getString(R.string.saved) + notificationMassage, Toast.LENGTH_LONG).show();
+
+                new MailSender().send(
+                        mMember,
+                        String.format("[%1$s] 打刻通知: %2$sの%3$s", getString(R.string.app_name), mMember.getName(), notificationMassage),
+                        mMember.getName() + "の" + notificationMassage
+                );
 
                 new SlackClient().sendMessage(mMember.getSlackPath(),
-                        new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
-                                inTime.getDate(),
-                                inTime.getIn(),
-                                getString(R.string.in)),
+                        new SlackClient.SlackMessage(notificationMassage,
                                 getString(R.string.app_name), getString(R.string.slack_icon)));
 
                 return null;
@@ -285,17 +289,21 @@ public class MemberDetailFragment extends Fragment {
 
                 final InOutTime outTime = (InOutTime) task.getResult().getProcTarget();
 
-                ToastHelper.makeText(getActivity(), getString(R.string.saved) + getString(R.string.slack_msg_in_out_time,
-                                outTime.getDate(),
-                                outTime.getOut(),
-                                getString(R.string.out)),
-                        Toast.LENGTH_LONG).show();
+                final String notificationMassage = getString(R.string.slack_msg_in_out_time,
+                        outTime.getDate(),
+                        outTime.getOut(),
+                        getString(R.string.out));
+
+                ToastHelper.makeText(getActivity(), getString(R.string.saved) + notificationMassage, Toast.LENGTH_LONG).show();
+
+                new MailSender().send(
+                        mMember,
+                        String.format("[%1$s] 打刻通知: %2$sの%3$s", getString(R.string.app_name), mMember.getName(), notificationMassage),
+                        mMember.getName() + "の" + notificationMassage
+                );
 
                 new SlackClient().sendMessage(mMember.getSlackPath(),
-                        new SlackClient.SlackMessage(getString(R.string.slack_msg_in_out_time,
-                                outTime.getDate(),
-                                outTime.getOut(),
-                                getString(R.string.out)),
+                        new SlackClient.SlackMessage(notificationMassage,
                                 getString(R.string.app_name), getString(R.string.slack_icon)));
 
                 return null;

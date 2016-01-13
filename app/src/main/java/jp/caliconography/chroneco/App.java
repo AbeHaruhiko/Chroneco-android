@@ -7,6 +7,7 @@ import com.parse.ParseACL;
 import com.parse.ParseObject;
 
 import jp.caliconography.chroneco.model.parseobject.InOutTime;
+import jp.caliconography.chroneco.model.parseobject.MailNotification;
 import jp.caliconography.chroneco.model.parseobject.Member;
 import jp.caliconography.chroneco.model.parseobject.Post;
 
@@ -30,6 +31,7 @@ public class App extends Application {
         ParseObject.registerSubclass(Member.class);
         ParseObject.registerSubclass(Post.class);
         ParseObject.registerSubclass(InOutTime.class);
+        ParseObject.registerSubclass(MailNotification.class);
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);

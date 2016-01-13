@@ -1,7 +1,7 @@
 apply plugin: 'android-library'
 
 dependencies {
-    compile 'com.parse.bolts:bolts-android:1.2.0'
+//    compile 'com.parse.bolts:bolts-android:1.2.0' // appの方で入れてる。
     compile 'com.android.support:support-v4:22.0.0'
 
     provided 'com.facebook.android:facebook-android-sdk:4.0.1'
