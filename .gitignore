@@ -1,7 +1,8 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea
 .DS_Store
 /build
+/ParseLoginUI/build
 string_parse.xml
+08.Chroneco-android.iml
